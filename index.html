@@ -959,7 +959,7 @@
             <div class="text-center mb-stack-lg select-none">
                 <p class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">ELAPSED TIME</p>
                 <h1 class="font-brand-italic text-[72px] md:text-[84px] leading-none tracking-tighter text-primary-container lime-glow"
-                    id="live-timer">00:14:17</h1>
+                    id="live-timer">00:00:00</h1>
             </div>
 
             <!-- Primary Stats Grid -->
@@ -967,7 +967,7 @@
                 <div class="glass-card rounded-xl p-6 flex flex-col items-center justify-center">
                     <span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">DISTANCE</span>
                     <div class="flex items-baseline gap-1">
-                        <span class="font-headline-lg text-headline-lg text-primary" id="live-distance">2.4</span>
+                        <span class="font-headline-lg text-headline-lg text-primary" id="live-distance">0.00</span>
                         <span class="font-label-caps text-label-caps text-on-surface-variant">KM</span>
                     </div>
                 </div>
@@ -975,7 +975,7 @@
                     <span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">CURR.
                         PACE</span>
                     <div class="flex items-baseline gap-1">
-                        <span class="font-headline-lg text-headline-lg text-primary" id="live-pace">5:12</span>
+                        <span class="font-headline-lg text-headline-lg text-primary" id="live-pace">0:00</span>
                         <span class="font-label-caps text-label-caps text-on-surface-variant">/KM</span>
                     </div>
                 </div>
@@ -988,9 +988,13 @@
                         style="font-variation-settings: 'FILL' 1;">favorite</span>
                     <span class="font-label-caps text-label-caps text-secondary italic text-red-400">HEART RATE</span>
                 </div>
+                <div class="absolute top-4 right-4 z-10">
+                    <button id="live-connect-hr-btn" onclick="requestLiveHeartRatePermission()" class="border border-white/10 hover:border-white/30 rounded px-2 py-1 text-[10px] font-label-caps flex items-center gap-1 transition-all bg-surface/50 text-on-surface">
+                        <span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR
+                    </button>
+                </div>
                 <div class="absolute bottom-4 right-4 z-10">
-                    <span class="font-headline-md text-headline-md text-primary italic" id="live-bpm-display">164
-                        BPM</span>
+                    <span class="font-headline-md text-headline-md text-primary italic"><span id="live-hr-display">0</span> BPM</span>
                 </div>
                 <!-- Simple SVG Waveform Animation -->
                 <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 100">
@@ -1008,8 +1012,8 @@
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Kcth9E2T7AC0YGYqaAtZcUR2CuY5WuNoJAlFBszcOnMkE-AYsrvQRSJjQGNV-XfhDtTBcpqhmPM631S4iEFS0-KsgVIZRJGCK0N9fPRN7EL2sQFLU7Qy3fSooaNefe29hdOyMz66Fh66JOf8C5oFP_to78-xFGX7eEVpbDW0v3bejuGQyAs_5q0Azd-8-Y6UdHarXyz_axm99CyIsZXUBXEg_P3x8Aobl8Spb0O1ufgZIYt0hsqqnepAZWNmZarEBhsnyRXU5dIX">
                     </div>
                     <div>
-                        <p class="font-label-caps text-[10px] text-on-surface-variant/60 italic">CURRENT LOCATION</p>
-                        <p class="font-body-md text-body-md font-bold text-primary italic">CITY CENTER PARKWAY</p>
+                        <p class="font-label-caps text-[10px] text-on-surface-variant/60 italic">CURRENT GPS COORDINATES</p>
+                        <p id="live-location-display" class="font-body-md text-body-md font-bold text-primary italic">WAITING FOR GPS...</p>
                     </div>
                 </div>
                 <span class="material-symbols-outlined text-on-surface-variant select-none">near_me</span>
@@ -1326,8 +1330,8 @@
         const appState = {
             currentScreen: 'screen-splash',
             isPaceRunning: false,
-            liveSessionTime: 765, // starts at 12:45 (seconds)
-            liveSessionDistance: 2.4,
+            liveSessionTime: 0,
+            liveSessionDistance: 0.0,
             liveSessionInterval: null,
             liveWaveFrameId: null,
             weeklyMileageBase: 45.7
@@ -1633,6 +1637,172 @@
         // ------------------------------------------
         // Live tracking metrics simulator
         // ------------------------------------------
+        // GPS and Heart Rate tracking helpers
+        let liveWatchId = null;
+        let liveLastCoord = null;
+        let liveBluetoothDevice = null;
+        let liveHrCharacteristic = null;
+        let liveCurrentBPM = 0;
+        let liveWaveAmplitude = 3;
+        let liveWaveSpeed = 0.5;
+
+        // Haversine formula to calculate distance in km
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Earth's radius in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function startLiveGPSTracking() {
+            if ("geolocation" in navigator) {
+                liveWatchId = navigator.geolocation.watchPosition(
+                    (position) => {
+                        if (!appState.isPaceRunning) return;
+                        const { latitude, longitude, speed, accuracy } = position.coords;
+
+                        // Display current coordinates
+                        const locEl = document.getElementById('live-location-display');
+                        if (locEl) {
+                            locEl.textContent = `${latitude.toFixed(6)}° N, ${longitude.toFixed(6)}° E`;
+                        }
+
+                        // Skip high accuracy variance
+                        if (accuracy > 50) return;
+
+                        if (liveLastCoord) {
+                            const dist = calculateDistance(
+                                liveLastCoord.latitude,
+                                liveLastCoord.longitude,
+                                latitude,
+                                longitude
+                            );
+                            appState.liveSessionDistance += dist;
+                        }
+                        liveLastCoord = { latitude, longitude };
+
+                        // Update UI
+                        const distEl = document.getElementById('live-distance');
+                        if (distEl) distEl.textContent = appState.liveSessionDistance.toFixed(2);
+
+                        // Pace calculation
+                        const paceEl = document.getElementById('live-pace');
+                        if (paceEl) {
+                            if (speed && speed > 0.5) {
+                                const paceMinPerKm = 16.6667 / speed; // 1000 / (speed * 60)
+                                const mins = Math.floor(paceMinPerKm);
+                                const secs = Math.floor((paceMinPerKm - mins) * 60).toString().padStart(2, '0');
+                                paceEl.textContent = `${mins}:${secs}`;
+                            } else if (appState.liveSessionDistance > 0.01) {
+                                const elapsedMins = appState.liveSessionTime / 60;
+                                const paceMinPerKm = elapsedMins / appState.liveSessionDistance;
+                                const mins = Math.floor(paceMinPerKm);
+                                const secs = Math.floor((paceMinPerKm - mins) * 60).toString().padStart(2, '0');
+                                paceEl.textContent = `${mins}:${secs}`;
+                            } else {
+                                paceEl.textContent = "0:00";
+                            }
+                        }
+                    },
+                    (error) => {
+                        console.warn("Geolocation watch error:", error);
+                        const locEl = document.getElementById('live-location-display');
+                        if (locEl) locEl.textContent = "GPS SERVICE ERROR";
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                const locEl = document.getElementById('live-location-display');
+                if (locEl) locEl.textContent = "GPS NOT SUPPORTED";
+            }
+        }
+
+        async function requestLiveHeartRatePermission() {
+            try {
+                const btn = document.getElementById('live-connect-hr-btn');
+                if (btn) btn.innerHTML = '<span class="material-symbols-outlined text-[12px] animate-spin">sync</span> PAIRING...';
+
+                liveBluetoothDevice = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['heart_rate'] }]
+                });
+
+                liveBluetoothDevice.addEventListener('gattserverdisconnected', onLiveHRDisconnected);
+
+                const server = await liveBluetoothDevice.gatt.connect();
+                const service = await server.getPrimaryService('heart_rate');
+                liveHrCharacteristic = await service.getCharacteristic('heart_rate_measurement');
+
+                await liveHrCharacteristic.startNotifications();
+                liveHrCharacteristic.addEventListener('characteristicvaluechanged', handleLiveHeartRateChanged);
+
+                if (btn) {
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[12px] text-green-400">bluetooth_connected</span> CONNECTED';
+                    btn.classList.remove('border-white/10');
+                    btn.classList.add('border-green-500/50');
+                }
+            } catch (error) {
+                console.error("Bluetooth Connection Error:", error);
+                const btn = document.getElementById('live-connect-hr-btn');
+                if (btn) btn.innerHTML = '<span class="material-symbols-outlined text-[12px] text-red-400">warning</span> PAIR FAILED';
+                setTimeout(() => {
+                    if (btn) {
+                        btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                        btn.classList.remove('border-green-500/50');
+                        btn.classList.add('border-white/10');
+                    }
+                }, 3000);
+            }
+        }
+
+        function onLiveHRDisconnected() {
+            console.log("Live Heart Rate sensor disconnected.");
+            const displayEl = document.getElementById('live-hr-display');
+            if (displayEl) displayEl.textContent = "0";
+            liveCurrentBPM = 0;
+            liveWaveAmplitude = 3;
+            liveWaveSpeed = 0.5;
+            const btn = document.getElementById('live-connect-hr-btn');
+            if (btn) {
+                btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                btn.classList.remove('border-green-500/50');
+                btn.classList.add('border-white/10');
+            }
+        }
+
+        function handleLiveHeartRateChanged(event) {
+            const value = event.target.value;
+            const flags = value.getUint8(0);
+            const rate16Bits = flags & 0x1;
+            let heartRate;
+            if (rate16Bits) {
+                heartRate = value.getUint16(1, true);
+            } else {
+                heartRate = value.getUint8(1);
+            }
+
+            liveCurrentBPM = heartRate;
+            const displayEl = document.getElementById('live-hr-display');
+            if (displayEl) displayEl.textContent = heartRate;
+
+            // Animate waveform based on actual BPM
+            if (heartRate > 0) {
+                liveWaveAmplitude = 15 + (heartRate - 60) * 0.15;
+                liveWaveSpeed = 0.5 + (heartRate - 60) * 0.015;
+            } else {
+                liveWaveAmplitude = 3;
+                liveWaveSpeed = 0.5;
+            }
+        }
+
         function startLiveSession(routeName) {
             const titleEl = document.getElementById('live-route-title');
             if (titleEl) {
@@ -1640,26 +1810,37 @@
             }
 
             // reset state
-            appState.liveSessionTime = 0; // Starts from 0 or 12:45
+            appState.liveSessionTime = 0;
             appState.liveSessionDistance = 0.0;
             appState.isPaceRunning = true;
+            liveLastCoord = null;
+            liveCurrentBPM = 0;
+            liveWaveAmplitude = 3;
+            liveWaveSpeed = 0.5;
 
             const timerEl = document.getElementById('live-timer');
             const distEl = document.getElementById('live-distance');
             const paceEl = document.getElementById('live-pace');
+            const hrEl = document.getElementById('live-hr-display');
+            const locEl = document.getElementById('live-location-display');
+            const btn = document.getElementById('live-connect-hr-btn');
 
             if (timerEl) timerEl.textContent = "00:00:00";
-            if (distEl) distEl.textContent = "0.0";
+            if (distEl) distEl.textContent = "0.00";
             if (paceEl) paceEl.textContent = "0:00";
+            if (hrEl) hrEl.textContent = "0";
+            if (locEl) locEl.textContent = "WAITING FOR GPS...";
+            if (btn) {
+                btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                btn.classList.remove('border-green-500/50');
+                btn.classList.add('border-white/10');
+            }
 
             showScreen('screen-live');
         }
 
         function startLiveMetricsSim() {
             const timerEl = document.getElementById('live-timer');
-            const distEl = document.getElementById('live-distance');
-            const paceEl = document.getElementById('live-pace');
-            const bpmEl = document.getElementById('live-bpm-display');
             const pauseIcon = document.getElementById('live-pause-icon');
             const pauseText = document.getElementById('live-pause-text');
 
@@ -1677,26 +1858,10 @@
                 const m = Math.floor((appState.liveSessionTime % 3600) / 60).toString().padStart(2, '0');
                 const s = (appState.liveSessionTime % 60).toString().padStart(2, '0');
                 if (timerEl) timerEl.textContent = `${h}:${m}:${s}`;
-
-                // increment distance slightly (approx 5:00 /km pace -> 3.3 meters per second)
-                appState.liveSessionDistance += 0.0033;
-                if (distEl) distEl.textContent = appState.liveSessionDistance.toFixed(2);
-
-                // calculate current pace dynamically based on progress
-                if (appState.liveSessionDistance > 0.05) {
-                    const elapsedMin = (appState.liveSessionTime / 60);
-                    const kmPace = (elapsedMin / appState.liveSessionDistance);
-                    const paceMins = Math.floor(kmPace);
-                    const paceSecs = Math.floor((kmPace - paceMins) * 60).toString().padStart(2, '0');
-                    if (paceEl) paceEl.textContent = `${paceMins}:${paceSecs}`;
-                }
-
-                // slight bpm fluctuations
-                if (bpmEl) {
-                    const bpm = 158 + Math.floor(Math.random() * 10);
-                    bpmEl.textContent = `${bpm} BPM`;
-                }
             }, 1000);
+
+            // Start GPS watch
+            startLiveGPSTracking();
 
             // Animate waveform SVG path
             const wave = document.getElementById('live-wave');
@@ -1707,13 +1872,13 @@
 
                 // only move if session is running
                 if (appState.isPaceRunning) {
-                    offset += 2;
+                    offset += liveWaveSpeed * 4;
                 }
 
                 const points = [];
                 for (let i = 0; i <= 400; i += 20) {
                     // if paused, flat line or micro ripples, if running, wavy lines
-                    const amplitude = appState.isPaceRunning ? 20 : 3;
+                    const amplitude = appState.isPaceRunning ? liveWaveAmplitude : 2;
                     const y = 50 + Math.sin((i + offset) * 0.05) * amplitude;
                     points.push(`${i} ${y}`);
                 }
@@ -1736,6 +1901,13 @@
                 cancelAnimationFrame(appState.liveWaveFrameId);
                 appState.liveWaveFrameId = null;
             }
+            if (liveWatchId) {
+                navigator.geolocation.clearWatch(liveWatchId);
+                liveWatchId = null;
+            }
+            if (liveBluetoothDevice && liveBluetoothDevice.gatt.connected) {
+                liveBluetoothDevice.gatt.disconnect();
+            }
         }
 
         function togglePauseLiveSession() {
@@ -1756,14 +1928,18 @@
         function stopLiveSession() {
             stopLiveMetricsSim();
 
+            const distVal = appState.liveSessionDistance.toFixed(2);
+            const paceVal = document.getElementById('live-pace').textContent;
+            const timerVal = document.getElementById('live-timer').textContent;
+
             // alert or notification simulation
-            alert(`RUN SAVED SUCCESS!\nDistance: ${appState.liveSessionDistance.toFixed(2)} KM\nTime: ${Math.floor(appState.liveSessionTime / 60)}m ${appState.liveSessionTime % 60}s`);
+            alert(`RUN SAVED SUCCESS!\nDistance: ${distVal} KM\nTime: ${timerVal}\nAvg Pace: ${paceVal} /KM\nHeart Rate: ${liveCurrentBPM > 0 ? liveCurrentBPM + ' BPM' : 'Not Measured'}`);
 
             // add to recent session weekly mileage
             appState.weeklyMileageBase += appState.liveSessionDistance;
             const weeklyKm = document.getElementById('weekly-km-display');
-            const parts = appState.weeklyMileageBase.toFixed(1).split('.');
             if (weeklyKm) {
+                const parts = appState.weeklyMileageBase.toFixed(1).split('.');
                 weeklyKm.innerHTML = `${parts[0]}.${parts[1]} <span class="text-headline-md font-headline-md align-top ml-[-12px]">KM</span>`;
             }
 

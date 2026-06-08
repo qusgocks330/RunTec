@@ -210,21 +210,21 @@
 <!-- Timer Section -->
 <div class="text-center mb-stack-lg">
 <p class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">ELAPSED TIME</p>
-<h1 class="font-brand-italic text-[84px] leading-none tracking-tighter text-primary-container lime-glow">00:14:17</h1>
+<h1 id="timer-display" class="font-brand-italic text-[84px] leading-none tracking-tighter text-primary-container lime-glow">00:00:00</h1>
 </div>
 <!-- Primary Stats Grid -->
 <div class="grid grid-cols-2 gap-gutter w-full mb-stack-md">
 <div class="glass-card rounded-xl p-6 flex flex-col items-center justify-center">
 <span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">DISTANCE</span>
 <div class="flex items-baseline gap-1">
-<span class="font-headline-lg text-headline-lg text-primary">2.4</span>
+<span id="distance-display" class="font-headline-lg text-headline-lg text-primary">0.00</span>
 <span class="font-label-caps text-label-caps text-on-surface-variant">KM</span>
 </div>
 </div>
 <div class="glass-card rounded-xl p-6 flex flex-col items-center justify-center">
 <span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">CURR. PACE</span>
 <div class="flex items-baseline gap-1">
-<span class="font-headline-lg text-headline-lg text-primary">5:12</span>
+<span id="pace-display" class="font-headline-lg text-headline-lg text-primary">0:00</span>
 <span class="font-label-caps text-label-caps text-on-surface-variant">/KM</span>
 </div>
 </div>
@@ -235,12 +235,17 @@
 <span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
 <span class="font-label-caps text-label-caps text-secondary italic">HEART RATE</span>
 </div>
+<div class="absolute top-4 right-4 z-10">
+<button id="connect-hr-btn" onclick="requestHeartRatePermission()" class="border border-white/10 hover:border-white/30 rounded px-2 py-1 text-[10px] font-label-caps flex items-center gap-1 transition-all bg-surface/50 text-on-surface">
+<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR
+</button>
+</div>
 <div class="absolute bottom-4 right-4 z-10">
-<span class="font-headline-md text-headline-md text-primary italic">164 BPM</span>
+<span class="font-headline-md text-headline-md text-primary italic"><span id="hr-display">0</span> BPM</span>
 </div>
 <!-- Simple SVG Waveform Animation -->
 <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 100">
-<path class="opacity-40" d="M 0 30.80181861126898 L 20 44.34465944858137 L 40 63.086994307928855 L 60 69.79720695433299 L 80 58.30595882642091 L 100 39.17825045838911 L 120 30.000008711859387 L 140 39.20966672096073 L 160 58.33990738463933 L 180 69.80247566033398 L 200 63.05873913771299 L 220 44.30885807533973 L 240 30.791386652453426 L 260 34.9342257562424 L 280 52.92846822036445 L 300 68.23029050800656 L 320 66.77126777587956 L 340 49.892818795272944 L 360 33.11291172000094 L 380 31.858915730562387 L 400 47.28374895654831" fill="none" id="wave" stroke="#c7f300" stroke-width="2"></path>
+<path class="opacity-40" d="M 0 50 L 400 50" fill="none" id="wave" stroke="#c7f300" stroke-width="2"></path>
 </svg>
 </div>
 <!-- Mini Map Preview / Location -->
@@ -250,8 +255,8 @@
 <img class="w-full h-full object-cover opacity-50" data-alt="A stylized digital map interface showing a GPS running route through a modern urban landscape at dusk. The path is highlighted in a vibrant electric lime neon glow against a dark charcoal and slate gray background. Minimalist aesthetic with high contrast and tech-inspired details." data-location="Seoul" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Kcth9E2T7AC0YGYqaAtZcUR2CuY5WuNoJAlFBszcOnMkE-AYsrvQRSJjQGNV-XfhDtTBcpqhmPM631S4iEFS0-KsgVIZRJGCK0N9fPRN7EL2sQFLU7Qy3fSooaNefe29hdOyMz66Fh66JOf8C5oFP_to78-xFGX7eEVpbDW0v3bejuGQyAs_5q0Azd-8-Y6UdHarXyz_axm99CyIsZXUBXEg_P3x8Aobl8Spb0O1ufgZIYt0hsqqnepAZWNmZarEBhsnyRXU5dIX">
 </div>
 <div>
-<p class="font-label-caps text-[10px] text-on-surface-variant/60 italic">CURRENT LOCATION</p>
-<p class="font-body-md text-body-md font-bold text-primary italic">CITY CENTER PARKWAY</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant/60 italic">CURRENT GPS COORDINATES</p>
+<p id="location-display" class="font-body-md text-body-md font-bold text-primary italic">WAITING FOR GPS...</p>
 </div>
 </div>
 <span class="material-symbols-outlined text-on-surface-variant">near_me</span>
@@ -259,25 +264,32 @@
 </main>
 <!-- Footer Action Controls (No Nav) -->
 <div class="fixed bottom-0 left-0 w-full px-margin-mobile pb-12 pt-8 flex gap-4 bg-gradient-to-t from-background via-background/80 to-transparent">
-<button class="flex-1 h-16 rounded-full border-2 border-primary-container text-primary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
-<span class="material-symbols-outlined">pause</span>
-            PAUSE
-        </button>
-<button class="flex-1 h-16 rounded-full bg-secondary-container text-on-secondary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
+<button id="pause-btn" onclick="togglePauseLiveSession()" class="flex-1 h-16 rounded-full border-2 border-primary-container text-primary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
+<span id="pause-icon" class="material-symbols-outlined">pause</span>
+<span id="pause-text">PAUSE</span>
+</button>
+<button id="stop-btn" onclick="stopLiveSession()" class="flex-1 h-16 rounded-full bg-secondary-container text-on-secondary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stop</span>
             STOP
         </button>
 </div>
 <script>
-        // Simple micro-interaction for the heart rate wave
+        // Waveform Animation State
         const wave = document.getElementById('wave');
         let offset = 0;
+        let waveAmplitude = 3; // Starting flat/small ripple since HR is 0
+        let waveSpeed = 0.5;
+        let isPaused = false;
         
         function animateWave() {
-            offset += 2;
+            if (!isPaused) {
+                offset += waveSpeed * 4;
+            }
             const points = [];
             for (let i = 0; i <= 400; i += 20) {
-                const y = 50 + Math.sin((i + offset) * 0.05) * 20;
+                // If paused, drop amplitude to resting ripple
+                const amp = isPaused ? 2 : waveAmplitude;
+                const y = 50 + Math.sin((i + offset) * 0.05) * amp;
                 points.push(`${i} ${y}`);
             }
             wave.setAttribute('d', `M ${points.join(' L ')}`);
@@ -286,20 +298,221 @@
         
         animateWave();
 
-        // Simulate timer increment
-        let seconds = 765; // 12:45
-        const timerElement = document.querySelector('h1');
-        
-        setInterval(() => {
-            seconds++;
-            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
-            timerElement.textContent = `${h}:${m}:${s}`;
-        }, 1000);
+        // Timer State
+        let seconds = 0;
+        const timerElement = document.getElementById('timer-display');
+        let timerInterval = null;
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (isPaused) return;
+                seconds++;
+                const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                timerElement.textContent = `${h}:${m}:${s}`;
+            }, 1000);
+        }
+        startTimer();
+
+        // Geolocation tracking
+        let watchId = null;
+        let lastCoord = null;
+        let totalDistance = 0.0;
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Earth's radius in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function startGPSTracking() {
+            if ("geolocation" in navigator) {
+                watchId = navigator.geolocation.watchPosition(
+                    (position) => {
+                        if (isPaused) return;
+                        const { latitude, longitude, speed, accuracy } = position.coords;
+
+                        // Display current coordinates
+                        document.getElementById('location-display').textContent = 
+                            `${latitude.toFixed(6)}° N, ${longitude.toFixed(6)}° E`;
+
+                        // Skip high accuracy variance
+                        if (accuracy > 50) return;
+
+                        if (lastCoord) {
+                            const dist = calculateDistance(
+                                lastCoord.latitude,
+                                lastCoord.longitude,
+                                latitude,
+                                longitude
+                            );
+                            totalDistance += dist;
+                        }
+                        lastCoord = { latitude, longitude };
+
+                        // Update UI
+                        document.getElementById('distance-display').textContent = totalDistance.toFixed(2);
+
+                        // Pace calculation
+                        const paceEl = document.getElementById('pace-display');
+                        if (speed && speed > 0.5) {
+                            const paceMinPerKm = 16.6667 / speed; // 1000 / (speed * 60)
+                            const mins = Math.floor(paceMinPerKm);
+                            const secs = Math.floor((paceMinPerKm - mins) * 60).toString().padStart(2, '0');
+                            paceEl.textContent = `${mins}:${secs}`;
+                        } else if (totalDistance > 0.01) {
+                            const elapsedMins = seconds / 60;
+                            const paceMinPerKm = elapsedMins / totalDistance;
+                            const mins = Math.floor(paceMinPerKm);
+                            const secs = Math.floor((paceMinPerKm - mins) * 60).toString().padStart(2, '0');
+                            paceEl.textContent = `${mins}:${secs}`;
+                        } else {
+                            paceEl.textContent = "0:00";
+                        }
+                    },
+                    (error) => {
+                        console.warn("Geolocation watch error:", error);
+                        document.getElementById('location-display').textContent = "GPS SERVICE ERROR";
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                document.getElementById('location-display').textContent = "GPS NOT SUPPORTED";
+            }
+        }
+        startGPSTracking();
+
+        // Web Bluetooth Heart Rate API Integration
+        let bluetoothDevice = null;
+        let hrCharacteristic = null;
+        let currentBPM = 0;
+
+        async function requestHeartRatePermission() {
+            try {
+                const btn = document.getElementById('connect-hr-btn');
+                if (btn) btn.innerHTML = '<span class="material-symbols-outlined text-[12px] animate-spin">sync</span> PAIRING...';
+
+                bluetoothDevice = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['heart_rate'] }]
+                });
+
+                bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+
+                const server = await bluetoothDevice.gatt.connect();
+                const service = await server.getPrimaryService('heart_rate');
+                hrCharacteristic = await service.getCharacteristic('heart_rate_measurement');
+
+                await hrCharacteristic.startNotifications();
+                hrCharacteristic.addEventListener('characteristicvaluechanged', handleHeartRateChanged);
+
+                if (btn) {
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[12px] text-green-400">bluetooth_connected</span> CONNECTED';
+                    btn.classList.remove('border-white/10');
+                    btn.classList.add('border-green-500/50');
+                }
+            } catch (error) {
+                console.error("Bluetooth Connection Error:", error);
+                const btn = document.getElementById('connect-hr-btn');
+                if (btn) btn.innerHTML = '<span class="material-symbols-outlined text-[12px] text-red-400">warning</span> PAIR FAILED';
+                setTimeout(() => {
+                    if (btn) {
+                        btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                        btn.classList.remove('border-green-500/50');
+                        btn.classList.add('border-white/10');
+                    }
+                }, 3000);
+            }
+        }
+
+        function onDisconnected() {
+            console.log("Heart Rate sensor disconnected.");
+            document.getElementById('hr-display').textContent = "0";
+            currentBPM = 0;
+            waveAmplitude = 3;
+            waveSpeed = 0.5;
+            const btn = document.getElementById('connect-hr-btn');
+            if (btn) {
+                btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                btn.classList.remove('border-green-500/50');
+                btn.classList.add('border-white/10');
+            }
+        }
+
+        function handleHeartRateChanged(event) {
+            const value = event.target.value;
+            const flags = value.getUint8(0);
+            const rate16Bits = flags & 0x1;
+            let heartRate;
+            if (rate16Bits) {
+                heartRate = value.getUint16(1, true);
+            } else {
+                heartRate = value.getUint8(1);
+            }
+
+            currentBPM = heartRate;
+            document.getElementById('hr-display').textContent = heartRate;
+
+            // Animate waveform based on actual BPM
+            if (heartRate > 0) {
+                waveAmplitude = 15 + (heartRate - 60) * 0.15;
+                waveSpeed = 0.5 + (heartRate - 60) * 0.015;
+            } else {
+                waveAmplitude = 3;
+                waveSpeed = 0.5;
+            }
+        }
+
+        // Live Controls (Pause/Resume/Stop)
+        function togglePauseLiveSession() {
+            isPaused = !isPaused;
+            const pauseIcon = document.getElementById('pause-icon');
+            const pauseText = document.getElementById('pause-text');
+
+            if (isPaused) {
+                if (pauseIcon) pauseIcon.textContent = "play_arrow";
+                if (pauseText) pauseText.textContent = "RESUME";
+            } else {
+                if (pauseIcon) pauseIcon.textContent = "pause";
+                if (pauseText) pauseText.textContent = "PAUSE";
+            }
+        }
+
+        function stopLiveSession() {
+            isPaused = true;
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+            }
+            if (bluetoothDevice && bluetoothDevice.gatt.connected) {
+                bluetoothDevice.gatt.disconnect();
+            }
+
+            alert(`RUN SUMMARY\n----------------\nElapsed Time: ${timerElement.textContent}\nDistance: ${totalDistance.toFixed(2)} KM\nAvg Pace: ${document.getElementById('pace-display').textContent} /KM\nHeart Rate: ${currentBPM > 0 ? currentBPM + ' BPM' : 'Not Measured'}`);
+            
+            // Reset to 0
+            seconds = 0;
+            totalDistance = 0.0;
+            lastCoord = null;
+            timerElement.textContent = "00:00:00";
+            document.getElementById('distance-display').textContent = "0.00";
+            document.getElementById('pace-display').textContent = "0:00";
+            document.getElementById('hr-display').textContent = "0";
+            document.getElementById('location-display').textContent = "WAITING FOR GPS...";
+            isPaused = false;
+            
+            // Re-start GPS tracking
+            startGPSTracking();
+        }
     </script>
-
-
-
-
 </body></html>
