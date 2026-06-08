@@ -1696,20 +1696,6 @@
         // Dashboard control
         // ------------------------------------------
         function initDashboard() {
-            const weeklyKm = document.getElementById('weekly-km-display');
-
-            // Randomly tick weekly mileage display slightly
-            setInterval(() => {
-                if (appState.currentScreen !== 'screen-dashboard') return;
-                if (Math.random() > 0.8) {
-                    appState.weeklyMileageBase += 0.1;
-                    const parts = appState.weeklyMileageBase.toFixed(1).split('.');
-                    if (weeklyKm) {
-                        weeklyKm.innerHTML = `${parts[0]}.${parts[1]} <span class="text-headline-md font-headline-md align-top ml-[-12px]">KM</span>`;
-                    }
-                }
-            }, 3000);
-
             // Active badge pulsing in competition screen
             const liveBadges = document.querySelectorAll('.live-badge');
             setInterval(() => {
