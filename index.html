@@ -575,7 +575,7 @@
     <!-- ========================================== -->
     <!-- 3. DASHBOARD SCREEN (HOME)                 -->
     <!-- ========================================== -->
-    <div id="screen-dashboard" class="screen-container min-h-screen bg-stone-texture bg-fixed pb-32 pt-20 hidden">
+    <div id="screen-dashboard" class="screen-container min-h-screen bg-stone-texture bg-fixed pb-32 pt-36 hidden">
         <!-- TopAppBar -->
         <header
             class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/40 backdrop-blur-xl border-b border-white/5">
@@ -701,10 +701,10 @@
             </div>
         </div>
 
-        <!-- FAB: Central Action -->
-        <div class="fixed bottom-28 left-1/2 -translate-x-1/2 z-40">
+        <!-- FAB: Central Action - Fixed at top below header -->
+        <div class="fixed top-[72px] left-1/2 -translate-x-1/2 z-40 w-full flex justify-center px-4 pointer-events-none">
             <button onclick="startLiveSession('Custom Performance Route')"
-                class="bg-primary-fixed text-on-primary-fixed h-16 px-8 rounded-full flex items-center gap-3 shadow-[0_10px_30px_rgba(199,243,0,0.3)] active:scale-95 transition-all duration-200"
+                class="bg-primary-fixed text-on-primary-fixed h-14 px-8 rounded-full flex items-center gap-3 shadow-[0_8px_24px_rgba(199,243,0,0.4)] active:scale-95 transition-all duration-200 pointer-events-auto"
                 id="dashboard-fab">
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
                 <span class="font-label-caps text-label-caps italic text-base">START NEW RACE</span>
