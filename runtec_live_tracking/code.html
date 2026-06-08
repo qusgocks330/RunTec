@@ -312,6 +312,21 @@
                 const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
                 const s = (seconds % 60).toString().padStart(2, '0');
                 timerElement.textContent = `${h}:${m}:${s}`;
+
+                // MOCK SIMULATION INCREMENT
+                const mockIncrement = 0.0031 + Math.random() * 0.0004;
+                totalDistance += mockIncrement;
+
+                document.getElementById('distance-display').textContent = totalDistance.toFixed(2);
+
+                const paceEl = document.getElementById('pace-display');
+                if (paceEl && totalDistance > 0.01) {
+                    const elapsedMins = seconds / 60;
+                    const paceMinPerKm = elapsedMins / totalDistance;
+                    const mins = Math.floor(paceMinPerKm);
+                    const secs = Math.floor((paceMinPerKm - mins) * 60).toString().padStart(2, '0');
+                    paceEl.textContent = `${mins}:${secs}`;
+                }
             }, 1000);
         }
         startTimer();
