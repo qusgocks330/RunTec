@@ -1,0 +1,239 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RunTec - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>.material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-container {
+            background: rgba(30, 32, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .slate-bg {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsMNozLX-RH6C2IeNJqen_ja0YEhB2Js3s2w77ktc3BpPR3jm3_ErtUTeMbmLCq3HNkW5arayHaz65jduGn5t222-4mAbEItrt6FufFAWgUG5zxFY0L5UIgweQnx3sdlqQoypv6QQiqKJZTg66OhoECcg1c4kE3L1SdM_kGoKUOpsVnC2iWl8MzjUPD2NxwDbZBAj90-rIl--p2WMJC88lfYQVLCw2Vx5IR5v29C5UvxDL5u-nFRPBN4N8SnJH18Eo-wlpGwSjSstg');
+            background-size: auto;
+            background-position: top left;
+            background-repeat: repeat;
+        }
+        .italic-force * {
+            font-style: italic !important;
+        }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#2f3034",
+                      "inverse-primary": "#526600",
+                      "surface": "#111316",
+                      "on-secondary-fixed-variant": "#802a00",
+                      "on-surface": "#e2e2e6",
+                      "tertiary-fixed": "#e1e2e7",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#171e00",
+                      "on-secondary": "#5a1b00",
+                      "on-tertiary-fixed-variant": "#44474b",
+                      "primary-fixed-dim": "#aed500",
+                      "surface-bright": "#37393d",
+                      "on-primary-fixed-variant": "#3d4d00",
+                      "on-error": "#690005",
+                      "surface-variant": "#333538",
+                      "background": "#111316",
+                      "surface-container-high": "#282a2d",
+                      "secondary-container": "#ff5e07",
+                      "on-primary-container": "#576c00",
+                      "on-secondary-container": "#531900",
+                      "surface-container-low": "#1a1c1f",
+                      "outline-variant": "#444933",
+                      "on-surface-variant": "#c5c9ac",
+                      "surface-container-lowest": "#0c0e11",
+                      "tertiary-container": "#e1e2e7",
+                      "primary": "#ffffff",
+                      "inverse-surface": "#e2e2e6",
+                      "on-secondary-fixed": "#370e00",
+                      "on-primary": "#293500",
+                      "secondary-fixed": "#ffdbce",
+                      "on-background": "#e2e2e6",
+                      "surface-dim": "#111316",
+                      "on-tertiary-fixed": "#191c20",
+                      "tertiary": "#ffffff",
+                      "secondary": "#ffb59a",
+                      "error-container": "#93000a",
+                      "outline": "#8e9378",
+                      "on-tertiary": "#2e3135",
+                      "primary-fixed": "#c7f300",
+                      "secondary-fixed-dim": "#ffb59a",
+                      "on-tertiary-container": "#626469",
+                      "primary-container": "#c7f300",
+                      "surface-container": "#1e2023",
+                      "surface-tint": "#aed500",
+                      "error": "#ffb4ab",
+                      "surface-container-highest": "#333538",
+                      "tertiary-fixed-dim": "#c4c6cb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "20px",
+                      "margin-desktop": "40px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Anybody"],
+                      "display-hero": ["Anybody"],
+                      "headline-md": ["Anybody"],
+                      "body-lg": ["Geist"],
+                      "label-caps": ["Space Mono"],
+                      "metric-xl": ["Anybody"],
+                      "body-md": ["Geist"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "display-hero": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "metric-xl": ["64px", {"lineHeight": "1", "fontWeight": "900"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script><style>.material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-container {
+            background: rgba(30, 32, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .slate-bg {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsMNozLX-RH6C2IeNJqen_ja0YEhB2Js3s2w77ktc3BpPR3jm3_ErtUTeMbmLCq3HNkW5arayHaz65jduGn5t222-4mAbEItrt6FufFAWgUG5zxFY0L5UIgweQnx3sdlqQoypv6QQiqKJZTg66OhoECcg1c4kE3L1SdM_kGoKUOpsVnC2iWl8MzjUPD2NxwDbZBAj90-rIl--p2WMJC88lfYQVLCw2Vx5IR5v29C5UvxDL5u-nFRPBN4N8SnJH18Eo-wlpGwSjSstg');
+            background-size: auto;
+            background-position: top left;
+            background-repeat: repeat;
+        }
+        .italic-force * {
+            font-style: italic !important;
+        }</style><style>.material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-container {
+            background: rgba(30, 32, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .slate-bg {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsMNozLX-RH6C2IeNJqen_ja0YEhB2Js3s2w77ktc3BpPR3jm3_ErtUTeMbmLCq3HNkW5arayHaz65jduGn5t222-4mAbEItrt6FufFAWgUG5zxFY0L5UIgweQnx3sdlqQoypv6QQiqKJZTg66OhoECcg1c4kE3L1SdM_kGoKUOpsVnC2iWl8MzjUPD2NxwDbZBAj90-rIl--p2WMJC88lfYQVLCw2Vx5IR5v29C5UvxDL5u-nFRPBN4N8SnJH18Eo-wlpGwSjSstg');
+            background-size: auto;
+            background-position: top left;
+            background-repeat: repeat;
+        }
+        .italic-force * {
+            font-style: italic !important;
+        }</style></head>
+<body class="bg-background text-on-surface font-body-md text-body-md italic-force">
+<!-- Global Layout Wrapper -->
+<main class="relative w-full flex flex-col items-center slate-bg min-h-screen py-12">
+<!-- Overlay for atmospheric depth -->
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-background/40 pointer-events-none"></div>
+<!-- Content Container -->
+<div class="relative z-10 w-full max-w-md px-margin-mobile flex flex-col items-center">
+<!-- Logo Section -->
+<div class="mb-stack-lg animate-pulse">
+<h1 class="sr-only">RUNTEC</h1>
+</div>
+<!-- Login Form Card -->
+<div class="glass-container w-full p-8 rounded-xl flex flex-col gap-stack-md border-primary-fixed/20 shadow-2xl">
+<div class="text-center">
+<h2 class="font-headline-md text-headline-md italic font-black uppercase tracking-widest text-primary-fixed mb-1">
+                        Athlete Access
+                    </h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">
+                        ENTER YOUR PERFORMANCE CREDENTIALS
+                    </p>
+</div>
+<form class="flex flex-col gap-gutter" onsubmit="event.preventDefault();">
+<!-- Email Field -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps ml-1 text-primary-fixed/80">EMAIL_ADDRESS</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary-fixed/40 group-focus-within:text-primary-fixed transition-colors">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest/40 border-2 border-primary-fixed/30 rounded-lg text-primary-fixed focus:border-primary-fixed focus:ring-0 focus:outline-none transition-all duration-300 placeholder:text-on-surface-variant/30 font-bold italic" placeholder="RUNNER@RUNTEC.IO" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps ml-1 text-primary-fixed/80">SECURE_KEY</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary-fixed/40 group-focus-within:text-primary-fixed transition-colors">lock</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest/40 border-2 border-primary-fixed/30 rounded-lg text-primary-fixed focus:border-primary-fixed focus:ring-0 focus:outline-none transition-all duration-300 placeholder:text-on-surface-variant/30 font-bold italic" placeholder="••••••••" type="password">
+</div>
+</div>
+<!-- Login Button -->
+<button class="mt-stack-sm w-full py-5 bg-primary-fixed hover:bg-primary-fixed-dim text-background font-headline-md font-black italic rounded-lg transition-all duration-200 transform active:scale-[0.98] shadow-[0_0_20px_rgba(199,243,0,0.4)] uppercase">
+                        START RUNNING
+                    </button>
+</form>
+<!-- Footer Links -->
+<div class="flex flex-col items-center gap-stack-sm mt-4">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary-fixed transition-colors duration-200" href="#">
+                        FORGOT PASSWORD?
+                    </a>
+<div class="h-[1px] w-12 bg-white/10 my-2"></div>
+<p class="font-body-md text-body-md text-on-surface-variant italic">
+                        NEW TO THE TRACK? 
+                        <a class="text-primary-fixed font-black hover:underline ml-1" href="#">SIGN UP</a>
+</p>
+</div>
+</div>
+<!-- Atmospheric Bottom Text -->
+<div class="mt-stack-lg flex flex-col items-center gap-2 opacity-30">
+<p class="font-label-caps text-[10px] tracking-[0.5em] text-on-surface">PRECISION. PERFORMANCE. PACE.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span>
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span class="material-symbols-outlined text-[16px]">route</span>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Subtle Mouse Interaction for Glass Tilt
+        const card = document.querySelector('.glass-container');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+            if (card) card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Click interaction for button
+        const btn = document.querySelector('button');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'PREPARING ENGINE...';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+
+
+
+
+</body></html>

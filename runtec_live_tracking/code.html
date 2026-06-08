@@ -1,0 +1,305 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>RUNTEC - LIVE SESSION</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&amp;family=Space+Mono:wght@400;700&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#5a1b00",
+                      "outline": "#8e9378",
+                      "on-secondary-fixed": "#370e00",
+                      "on-primary": "#293500",
+                      "background": "#111316",
+                      "surface-bright": "#37393d",
+                      "on-secondary-fixed-variant": "#802a00",
+                      "surface-dim": "#111316",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#aed500",
+                      "primary-container": "#c7f300",
+                      "on-primary-fixed": "#171e00",
+                      "surface-container": "#1e2023",
+                      "primary-fixed": "#c7f300",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#2f3034",
+                      "on-surface-variant": "#c5c9ac",
+                      "surface-container-low": "#1a1c1f",
+                      "error-container": "#93000a",
+                      "tertiary-fixed": "#e1e2e7",
+                      "surface-container-high": "#282a2d",
+                      "secondary": "#ffb59a",
+                      "on-surface": "#e2e2e6",
+                      "tertiary-container": "#e1e2e7",
+                      "on-tertiary": "#2e3135",
+                      "primary-fixed-dim": "#aed500",
+                      "tertiary-fixed-dim": "#c4c6cb",
+                      "surface-variant": "#333538",
+                      "surface": "#111316",
+                      "secondary-fixed": "#ffdbce",
+                      "secondary-fixed-dim": "#ffb59a",
+                      "inverse-primary": "#526600",
+                      "on-primary-container": "#576c00",
+                      "on-primary-fixed-variant": "#3d4d00",
+                      "primary": "#ffffff",
+                      "on-error": "#690005",
+                      "inverse-surface": "#e2e2e6",
+                      "tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#191c20",
+                      "surface-container-highest": "#333538",
+                      "surface-container-lowest": "#0c0e11",
+                      "on-tertiary-fixed-variant": "#44474b",
+                      "on-background": "#e2e2e6",
+                      "secondary-container": "#ff5e07",
+                      "on-secondary-container": "#531900",
+                      "outline-variant": "#444933",
+                      "on-tertiary-container": "#626469"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-md": "24px",
+                      "margin-desktop": "40px",
+                      "unit": "4px",
+                      "margin-mobile": "20px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "48px"
+              },
+              "fontFamily": {
+                      "label-caps": ["Space Mono"],
+                      "display-hero": ["Anybody"],
+                      "body-lg": ["Geist"],
+                      "headline-md": ["Anybody"],
+                      "headline-lg": ["Anybody"],
+                      "body-md": ["Geist"],
+                      "metric-xl": ["Anybody"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "display-hero": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "metric-xl": ["64px", {"lineHeight": "1", "fontWeight": "900"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>body {
+            background-color: #111316;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(44, 47, 51, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .lime-glow {
+            text-shadow: 0 0 20px rgba(174, 213, 0, 0.4);
+        }
+        .pulse-lime {
+            animation: pulse-lime 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-lime {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .7; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .canvas-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOjt4eLvrGtIXzA6sn3rEEJPsGngOy4wK0oVZeGHRd_hc3taDfo80mPVsvWZ3wWMcgCA491bjyAJacV6Ew0V8dKMVoUe5NdYvFsYqFUMTh78Thfx4q-cPXu1Frrb9v5Jes2_Oa5NPj3dzcvqPrYV_I6Wy70DFnkDPXrM81OuBK7iFWBjzVBfNdLQg2eMhqsnXJUs4oP5Qc4YFM6LWoU2MKZWnjqixKSZ7LPF0e8ot0WfbPQM-ny_oNAXjjF6gwWJoaC_4OD7zJL83N');
+            background-repeat: repeat;
+            background-size: 300px auto;
+            background-position: top left;
+        }
+        .font-brand-italic {
+            font-family: 'Anybody', sans-serif;
+            font-style: italic;
+            font-weight: 900;
+        }</style>
+<style>body {
+            background-color: #111316;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(44, 47, 51, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .lime-glow {
+            text-shadow: 0 0 20px rgba(174, 213, 0, 0.4);
+        }
+        .pulse-lime {
+            animation: pulse-lime 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-lime {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .7; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .canvas-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOjt4eLvrGtIXzA6sn3rEEJPsGngOy4wK0oVZeGHRd_hc3taDfo80mPVsvWZ3wWMcgCA491bjyAJacV6Ew0V8dKMVoUe5NdYvFsYqFUMTh78Thfx4q-cPXu1Frrb9v5Jes2_Oa5NPj3dzcvqPrYV_I6Wy70DFnkDPXrM81OuBK7iFWBjzVBfNdLQg2eMhqsnXJUs4oP5Qc4YFM6LWoU2MKZWnjqixKSZ7LPF0e8ot0WfbPQM-ny_oNAXjjF6gwWJoaC_4OD7zJL83N');
+            background-repeat: repeat;
+            background-size: 300px auto;
+            background-position: top left;
+        }
+        .font-brand-italic {
+            font-family: 'Anybody', sans-serif;
+            font-style: italic;
+            font-weight: 900;
+        }</style></head>
+<body class="text-on-surface font-body-md overflow-hidden h-screen flex flex-col">
+<!-- Background Canvas -->
+<div class="canvas-bg"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/90 z-[-1]"></div>
+<!-- Top App Bar (Modified for Live Session) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/60 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-primary-container pulse-lime"></span>
+<span class="font-label-caps text-label-caps italic text-primary-container tracking-[0.2em]">LIVE SESSION</span>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:opacity-80 cursor-pointer">settings</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center justify-center px-margin-mobile pt-20 pb-32">
+<!-- Timer Section -->
+<div class="text-center mb-stack-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">ELAPSED TIME</p>
+<h1 class="font-brand-italic text-[84px] leading-none tracking-tighter text-primary-container lime-glow">00:14:17</h1>
+</div>
+<!-- Primary Stats Grid -->
+<div class="grid grid-cols-2 gap-gutter w-full mb-stack-md">
+<div class="glass-card rounded-xl p-6 flex flex-col items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">DISTANCE</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary">2.4</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">KM</span>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 flex flex-col items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant/60 mb-2 italic">CURR. PACE</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary">5:12</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">/KM</span>
+</div>
+</div>
+</div>
+<!-- Dynamic Visualization Area (Waveform) -->
+<div class="w-full h-32 glass-card rounded-xl p-4 relative overflow-hidden mb-stack-md">
+<div class="absolute top-4 left-4 z-10 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps text-secondary italic">HEART RATE</span>
+</div>
+<div class="absolute bottom-4 right-4 z-10">
+<span class="font-headline-md text-headline-md text-primary italic">164 BPM</span>
+</div>
+<!-- Simple SVG Waveform Animation -->
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 100">
+<path class="opacity-40" d="M 0 30.80181861126898 L 20 44.34465944858137 L 40 63.086994307928855 L 60 69.79720695433299 L 80 58.30595882642091 L 100 39.17825045838911 L 120 30.000008711859387 L 140 39.20966672096073 L 160 58.33990738463933 L 180 69.80247566033398 L 200 63.05873913771299 L 220 44.30885807533973 L 240 30.791386652453426 L 260 34.9342257562424 L 280 52.92846822036445 L 300 68.23029050800656 L 320 66.77126777587956 L 340 49.892818795272944 L 360 33.11291172000094 L 380 31.858915730562387 L 400 47.28374895654831" fill="none" id="wave" stroke="#c7f300" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Mini Map Preview / Location -->
+<div class="w-full glass-card rounded-xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover opacity-50" data-alt="A stylized digital map interface showing a GPS running route through a modern urban landscape at dusk. The path is highlighted in a vibrant electric lime neon glow against a dark charcoal and slate gray background. Minimalist aesthetic with high contrast and tech-inspired details." data-location="Seoul" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Kcth9E2T7AC0YGYqaAtZcUR2CuY5WuNoJAlFBszcOnMkE-AYsrvQRSJjQGNV-XfhDtTBcpqhmPM631S4iEFS0-KsgVIZRJGCK0N9fPRN7EL2sQFLU7Qy3fSooaNefe29hdOyMz66Fh66JOf8C5oFP_to78-xFGX7eEVpbDW0v3bejuGQyAs_5q0Azd-8-Y6UdHarXyz_axm99CyIsZXUBXEg_P3x8Aobl8Spb0O1ufgZIYt0hsqqnepAZWNmZarEBhsnyRXU5dIX">
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant/60 italic">CURRENT LOCATION</p>
+<p class="font-body-md text-body-md font-bold text-primary italic">CITY CENTER PARKWAY</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">near_me</span>
+</div>
+</main>
+<!-- Footer Action Controls (No Nav) -->
+<div class="fixed bottom-0 left-0 w-full px-margin-mobile pb-12 pt-8 flex gap-4 bg-gradient-to-t from-background via-background/80 to-transparent">
+<button class="flex-1 h-16 rounded-full border-2 border-primary-container text-primary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">pause</span>
+            PAUSE
+        </button>
+<button class="flex-1 h-16 rounded-full bg-secondary-container text-on-secondary-container font-headline-md italic uppercase transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stop</span>
+            STOP
+        </button>
+</div>
+<script>
+        // Simple micro-interaction for the heart rate wave
+        const wave = document.getElementById('wave');
+        let offset = 0;
+        
+        function animateWave() {
+            offset += 2;
+            const points = [];
+            for (let i = 0; i <= 400; i += 20) {
+                const y = 50 + Math.sin((i + offset) * 0.05) * 20;
+                points.push(`${i} ${y}`);
+            }
+            wave.setAttribute('d', `M ${points.join(' L ')}`);
+            requestAnimationFrame(animateWave);
+        }
+        
+        animateWave();
+
+        // Simulate timer increment
+        let seconds = 765; // 12:45
+        const timerElement = document.querySelector('h1');
+        
+        setInterval(() => {
+            seconds++;
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            timerElement.textContent = `${h}:${m}:${s}`;
+        }, 1000);
+    </script>
+
+
+
+
+</body></html>

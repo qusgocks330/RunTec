@@ -1,0 +1,254 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>RunTec - Elevate Your Pace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#2f3034",
+                    "inverse-primary": "#526600",
+                    "surface": "#111316",
+                    "on-secondary-fixed-variant": "#802a00",
+                    "on-surface": "#e2e2e6",
+                    "tertiary-fixed": "#e1e2e7",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#171e00",
+                    "on-secondary": "#5a1b00",
+                    "on-tertiary-fixed-variant": "#44474b",
+                    "primary-fixed-dim": "#aed500",
+                    "surface-bright": "#37393d",
+                    "on-primary-fixed-variant": "#3d4d00",
+                    "on-error": "#690005",
+                    "surface-variant": "#333538",
+                    "background": "#111316",
+                    "surface-container-high": "#282a2d",
+                    "secondary-container": "#ff5e07",
+                    "on-primary-container": "#576c00",
+                    "on-secondary-container": "#531900",
+                    "surface-container-low": "#1a1c1f",
+                    "outline-variant": "#444933",
+                    "on-surface-variant": "#c5c9ac",
+                    "surface-container-lowest": "#0c0e11",
+                    "tertiary-container": "#e1e2e7",
+                    "primary": "#ffffff",
+                    "inverse-surface": "#e2e2e6",
+                    "on-secondary-fixed": "#370e00",
+                    "on-primary": "#293500",
+                    "secondary-fixed": "#ffdbce",
+                    "on-background": "#e2e2e6",
+                    "surface-dim": "#111316",
+                    "on-tertiary-fixed": "#191c20",
+                    "tertiary": "#ffffff",
+                    "secondary": "#ffb59a",
+                    "error-container": "#93000a",
+                    "outline": "#8e9378",
+                    "on-tertiary": "#2e3135",
+                    "primary-fixed": "#c7f300",
+                    "secondary-fixed-dim": "#ffb59a",
+                    "on-tertiary-container": "#626469",
+                    "surface-container": "#1e2023",
+                    "surface-tint": "#aed500",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#333538",
+                    "tertiary-fixed-dim": "#c4c6cb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "margin-desktop": "40px",
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Anybody"],
+                    "display-hero": ["Anybody"],
+                    "headline-md": ["Anybody"],
+                    "body-lg": ["Geist"],
+                    "label-caps": ["Space Mono"],
+                    "metric-xl": ["Anybody"],
+                    "body-md": ["Geist"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "display-hero": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "display-hero-mobile": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "metric-xl": ["64px", {"lineHeight": "1", "fontWeight": "900"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes speed-lines {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+
+        .speed-line {
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #d1ff00, transparent);
+            animation: speed-lines 1.5s linear infinite;
+        }
+
+        /* SVG Logo Animation Styles */
+        .logo-text-outline {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1px;
+        }
+
+        .logo-text-fill {
+            fill: #d1ff00; /* Primary brand color */
+            clip-path: url(#fill-clip);
+        }
+
+        @keyframes progressive-fill {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0%); }
+        }
+
+        .fill-rect {
+            animation: progressive-fill 3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+
+        .hidden-until-ready {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .ready {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<div class="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+<!-- Background Layer -->
+<div class="absolute inset-0 z-0" style="background-image: radial-gradient(circle, transparent 0%, rgba(17, 19, 22, 0.8) 100%), url(https://lh3.googleusercontent.com/aida-public/AB6AXuCZiBWNr93h2yxeqTnyHTnaNgyveY--OvZtjIgb5yeosa9Nha18mZ4WKMInbpdKGX3GJVfPRVshW9h5lP5QOy9-hJ3cMQ2qXOMG1GfmUsS7soek-QldmxHhVbM3OeLTsA5fQUjZ-Eiy8xiRF0Eo422cPNDz1lvzxPT4hjVXVCxykzn3SP_uqfwCbJlShulW59Iv4045BVt-gQdE-mbN2OVD3jaWXwNWbazGvNkFN8x4QnmmStt6lb2MT1NnYh_SrRyxFrth4nY9c0Lg); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+<!-- Atmospheric Speed Elements -->
+<div class="absolute inset-0 overflow-hidden z-20 pointer-events-none opacity-30">
+<div class="speed-line" style="left: 15%; animation-delay: 0.2s; height: 120px;"></div>
+<div class="speed-line" style="left: 45%; animation-delay: 0.8s; height: 180px;"></div>
+<div class="speed-line" style="left: 85%; animation-delay: 0.5s; height: 90px;"></div>
+<div class="speed-line" style="left: 30%; animation-delay: 1.2s; height: 150px;"></div>
+<div class="speed-line" style="left: 70%; animation-delay: 0s; height: 200px;"></div>
+</div>
+<!-- Main Content -->
+<main class="relative z-30 flex flex-col items-center justify-center space-y-12 px-margin-mobile w-full max-w-lg">
+<!-- Hero Logo -->
+<div class="relative group cursor-default transition-transform duration-700 hover:scale-105 active:scale-95">
+<!-- Glowing Aura -->
+<div class="absolute -inset-8 bg-primary-fixed/10 blur-3xl rounded-full scale-150 animate-pulse"></div>
+<div class="flex flex-col items-center">
+<!-- SVG Animated Logo -->
+<svg class="w-[280px] md:w-[400px] h-auto overflow-visible" viewBox="0 0 400 60"><defs><clipPath id="fill-clip"><rect class="fill-rect" height="100%" width="100%" x="0" y="0"></rect></clipPath></defs><text class="logo-text-outline italic font-display-hero uppercase tracking-tighter" dominant-baseline="middle" style="font-size: 64px; font-weight: 800; font-family: 'Anybody', sans-serif; stroke: #4a4d52;" text-anchor="middle" x="50%" y="50%">RUNTEC</text><text class="logo-text-fill italic font-display-hero uppercase tracking-tighter" dominant-baseline="middle" style="font-size: 64px; font-weight: 800; font-family: Anybody, sans-serif; fill: rgb(209, 255, 0); clip-path: url(&quot;#fill-clip&quot;); filter: drop-shadow(rgba(209, 255, 0, 0.8) 0px 0px 10px);" text-anchor="middle" x="50%" y="50%">RUNTEC</text></svg>
+<!-- Decorative underlining -->
+<div class="w-24 h-2 mt-2 skew-x-[-20deg] bg-white/10 overflow-hidden relative">
+<div class="absolute inset-0 bg-[#d1ff00] fill-rect origin-left"></div>
+</div>
+</div>
+</div>
+<!-- Loading Progress Container -->
+<div class="flex flex-col items-center space-y-2 mt-stack-md">
+<!-- Progress Bar -->
+<div class="w-48 h-[2px] bg-white/10 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-0 transition-all duration-[3000ms] ease-out bg-[#d1ff00]" id="progress-bar" style="width: 100%;"></div>
+</div>
+<!-- Percentage Counter -->
+<div class="font-label-caps text-[10px] text-on-surface/40 tracking-[0.2em] italic">
+        SYNCING PACE: <span class="" id="percent-counter">100</span>%
+    </div>
+</div>
+<!-- Completion State (Hidden initially) -->
+<button class="hidden-until-ready mt-8 px-8 py-3 bg-[#d1ff00] text-black font-label-caps text-sm italic uppercase tracking-widest hover:bg-white transition-all duration-300 transform translate-y-4 ready translate-y-0" id="get-started-btn" style="pointer-events: auto;">GET STARTED</button>
+</main>
+<!-- Footer Tagline -->
+<footer class="absolute bottom-16 z-30 flex flex-col items-center space-y-stack-sm">
+<p class="font-label-caps italic text-on-surface/60 uppercase tracking-[0.3em] transition-all duration-1000 text-\[14px\]" id="tagline">ELEVATE YOUR PACE</p>
+<div class="w-1 h-8 border-l border-on-tertiary-fixed-variant/40"></div>
+</footer>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('progress-bar');
+            const tagline = document.getElementById('tagline');
+            const counter = document.getElementById('percent-counter');
+            const getStartedBtn = document.getElementById('get-started-btn');
+            
+            let progress = 0;
+            const duration = 3000; // 3 seconds
+            const interval = 30; // update every 30ms
+            const step = (100 / (duration / interval));
+
+            // Start progress bar animation
+            setTimeout(() => {
+                bar.style.width = '100%';
+            }, 100);
+
+            // Animate percentage counter
+            const progressInterval = setInterval(() => {
+                progress += step;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    onLoadingComplete();
+                }
+                counter.textContent = Math.floor(progress);
+            }, interval);
+
+            function onLoadingComplete() {
+                // Show "Get Started" state
+                getStartedBtn.classList.remove('opacity-0', 'pointer-events-none');
+                getStartedBtn.classList.add('ready', 'translate-y-0');
+                getStartedBtn.style.pointerEvents = 'auto';
+                
+                // Pulsing glow on complete
+                document.querySelector('.logo-text-fill').style.filter = 'drop-shadow(0 0 10px rgba(209, 255, 0, 0.8))';
+            }
+
+            // Animate tagline in
+            setTimeout(() => {
+                tagline.classList.remove('translate-y-4', 'opacity-0');
+            }, 800);
+
+            // Subtle interaction: Tilt effect based on mouse movement (Desktop only)
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                    const hero = document.querySelector('svg');
+                    if(hero) hero.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+            }
+        });
+    </script>
+
+
+</body></html>

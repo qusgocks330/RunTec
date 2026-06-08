@@ -1,0 +1,286 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>RunTec | Race Competition</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&amp;family=Space+Mono:wght@700&amp;family=Geist:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#2f3034",
+                "inverse-primary": "#526600",
+                "surface": "#111316",
+                "on-secondary-fixed-variant": "#802a00",
+                "on-surface": "#e2e2e6",
+                "tertiary-fixed": "#e1e2e7",
+                "on-error-container": "#ffdad6",
+                "on-primary-fixed": "#171e00",
+                "on-secondary": "#5a1b00",
+                "on-tertiary-fixed-variant": "#44474b",
+                "primary-fixed-dim": "#aed500",
+                "surface-bright": "#37393d",
+                "on-primary-fixed-variant": "#3d4d00",
+                "on-error": "#690005",
+                "surface-variant": "#333538",
+                "background": "#111316",
+                "surface-container-high": "#282a2d",
+                "secondary-container": "#ff5e07",
+                "on-primary-container": "#576c00",
+                "on-secondary-container": "#531900",
+                "surface-container-low": "#1a1c1f",
+                "outline-variant": "#444933",
+                "on-surface-variant": "#c5c9ac",
+                "surface-container-lowest": "#0c0e11",
+                "tertiary-container": "#e1e2e7",
+                "primary": "#ffffff",
+                "inverse-surface": "#e2e2e6",
+                "on-secondary-fixed": "#370e00",
+                "on-background": "#e2e2e6",
+                "surface-dim": "#111316",
+                "on-tertiary-fixed": "#191c20",
+                "tertiary": "#ffffff",
+                "secondary": "#ffb59a",
+                "error-container": "#93000a",
+                "outline": "#8e9378",
+                "on-tertiary": "#2e3135",
+                "primary-fixed": "#c7f300",
+                "secondary-fixed-dim": "#ffb59a",
+                "on-tertiary-container": "#626469",
+                "primary-container": "#c7f300",
+                "surface-container": "#1e2023",
+                "surface-tint": "#aed500",
+                "error": "#ffb4ab",
+                "surface-container-highest": "#333538",
+                "tertiary-fixed-dim": "#c4c6cb"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "margin-mobile": "20px",
+                "margin-desktop": "40px",
+                "unit": "4px",
+                "gutter": "16px",
+                "stack-sm": "8px",
+                "stack-md": "24px",
+                "stack-lg": "48px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Anybody"],
+                "display-hero": ["Anybody"],
+                "headline-md": ["Anybody"],
+                "body-lg": ["Geist"],
+                "label-caps": ["Space Mono"],
+                "metric-xl": ["Anybody"],
+                "body-md": ["Geist"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                "display-hero": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                "metric-xl": ["64px", {"lineHeight": "1", "fontWeight": "900"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; } .glass-card { background: rgba(44, 47, 51, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); } .bg-stone-texture { background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2GBxNlg4rGaUAyU2yz3cp5xhrrjmgDCZCtqd-YeywSkcLqYOCjwPwHXtFLWU152Y_oLMCvjofiEjTZ2_bKkGpgCthLOS6e89MUEsVmY2hmp9Jv0D1GNI0uXSurdesWiyl5wStPmd-2gMSXTBCdsUvruMJEHepf67tgjoqNErH1zie-47NY-qGB1OkT2yUAWYSdZUzLwK0PM9-PybpN1wjs-uMTK0tGPuNqgsWX_9H0myNrAMfAxHsk6LgwZYb6ncyr69-bJKsqO9j'); background-repeat: repeat; background-size: 300px; background-position: top left; background-attachment: fixed; } .primary-glow { box-shadow: 0 0 20px rgba(174, 213, 0, 0.15); } ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #c7f300; border-radius: 10px; }</style><style>.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; } .glass-card { background: rgba(44, 47, 51, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); } .bg-stone-texture { background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2GBxNlg4rGaUAyU2yz3cp5xhrrjmgDCZCtqd-YeywSkcLqYOCjwPwHXtFLWU152Y_oLMCvjofiEjTZ2_bKkGpgCthLOS6e89MUEsVmY2hmp9Jv0D1GNI0uXSurdesWiyl5wStPmd-2gMSXTBCdsUvruMJEHepf67tgjoqNErH1zie-47NY-qGB1OkT2yUAWYSdZUzLwK0PM9-PybpN1wjs-uMTK0tGPuNqgsWX_9H0myNrAMfAxHsk6LgwZYb6ncyr69-bJKsqO9j'); background-repeat: repeat; background-size: 300px; background-position: top left; background-attachment: fixed; } .primary-glow { box-shadow: 0 0 20px rgba(174, 213, 0, 0.15); } ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #c7f300; border-radius: 10px; }</style></head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed bg-stone-texture min-h-screen" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAsGNsqB8R_rEcuxTIRaGlWx4jGqHAac1tEkwRSYEbcw-fGHAvYexK990aHzWzLJxACDN2svT3C0p3TY7z7LsR9_d1Ckn8mJ4tL3U3hro7RNXPMk-Jnv0AhWkSTT38mCEfWX8JATDMZ6zfYs1YsfR8d6YKXhXgtocZhrBuJQaRmHqweD0JlwC7sRi9neaSa6_Wlaut0Yi_74izpHZOl_n_HVUfEHdejhWX3dLC7CRPqKIM2T8gCGn6HRO7j5U7XMYXQdNPiDQf9AA_f&quot;); background-repeat: repeat; background-size: auto; background-blend-mode: luminosity; background-color: rgba(0, 0, 0, 0.4);">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface/40 backdrop-blur-xl border-b border-white/5">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile italic font-black tracking-tighter text-primary dark:text-primary-fixed uppercase">RUNTEC</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="min-h-screen pt-20 pb-32">
+<div class="max-w-7xl mx-auto px-margin-mobile">
+<!-- Page Header -->
+<section class="">
+<div class="flex justify-between items-end mb-stack-sm">
+<div>
+<span class="font-label-caps text-label-caps italic uppercase text-primary-fixed">Live Events</span>
+<h2 class="font-headline-lg text-headline-lg italic uppercase text-primary-fixed">Active Races</h2>
+</div>
+<button class="bg-primary-fixed text-on-primary-fixed px-6 py-2 font-label-caps italic font-bold uppercase transition-transform active:scale-95">Create Race</button>
+</div>
+<div class="h-1 w-24 bg-primary-fixed"></div>
+</section>
+<!-- Bento Grid Races -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-gutter"><!-- Horizontal Scroll Container for Races -->
+<div class="flex overflow-x-auto pb-4 gap-gutter snap-x snap-mandatory no-scrollbar scroll-smooth">
+<!-- Race Card 1: Seoul City Sprint -->
+<div class="glass-card p-5 flex flex-col gap-3 group hover:primary-glow transition-all duration-300 min-w-[300px] snap-center">
+<div class="flex justify-between items-start">
+<div class="bg-secondary-container text-on-secondary-container px-2 py-0.5 font-label-caps text-[10px] italic" style="opacity: 0.6;">LIVE</div>
+<span class="font-label-caps text-on-surface-variant/60 text-[10px]">4.2KM REMAINING</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] italic uppercase text-primary group-hover:text-primary-fixed transition-colors">Seoul City Sprint</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant italic">Urban blast through Gangnam</p>
+</div>
+<div class="bg-surface-container/30 p-3 rounded-lg border border-white/5 space-y-2 backdrop-blur-sm">
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full border border-primary-fixed overflow-hidden">
+<img alt="Athlete" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJWrDWGUH0xX1STPIupdmToobjUqQc_zVHzsnUz9PfIPNdeGjJDC_NE5H9FSfsZPN1kyPhJ1GbQ2B4xSBBzxgcc9UF4vAWStOojfGuJsG_9l80WYApeyC-0Hb1GmUYI8Iu1yOnBLHwxi8pmO5QeWB1TUlK3xzWejkvGGS9E2h9TFIIC2NfpyV9XW9qPgZP7Z7UcxrDPWcleu4GKx2IiABbH5wNOjq6YBgZbbisYYxw5UaShsYK-BY0-gSnOQWhDI4ZBEyrV1YJQzNU">
+</div>
+<span class="font-label-caps italic text-[11px]">1. KIM.S</span>
+</div>
+<span class="font-label-caps text-primary-fixed italic text-[11px]">14:22</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-2 font-label-caps italic font-black uppercase text-sm active:scale-95">View Live</button>
+</div>
+<!-- Race Card 2: Midnight Marathon -->
+<div class="glass-card p-5 flex flex-col gap-3 group hover:primary-glow transition-all duration-300 min-w-[300px] snap-center" style="transform: translateY(0px);">
+<div class="flex justify-between items-start">
+<div class="bg-primary/20 text-primary px-2 py-0.5 font-label-caps text-[10px] italic border border-primary/30">IN 02:45:00</div>
+<span class="font-label-caps text-on-surface-variant/60 text-[10px]">42.2KM</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] italic uppercase text-primary group-hover:text-primary-fixed transition-colors">Midnight Marathon</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant italic">Endurance test under neon</p>
+</div>
+<div class="flex -space-x-2 items-center py-2">
+<div class="w-8 h-8 rounded-full border border-surface-container bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBITPzfWf8xWe3iLoQJjJZukSoWTbqabN6yQZJ9-n_zLNV283-6osaW655wF6H4VpeOsqj8e_Ii5d_vX-u67BC9FMwpUyish7vEgacLHD7auNL7lRHnkXD3NDt7a0-uoM8t_JaUa_-aYhknRPb2zjzfGKpntGSLbvWpucqWy2FCq2mh30oofS2Pg1pK40uMn0I2ipSuCcs07bWCVWtCg0DZxb6bRArVgaBtAhC8gMffFMODzsJLU09hC1Qv__Lq1-J_X0Rnl7dQzktx"></div>
+<div class="w-8 h-8 rounded-full border border-surface-container bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp7G1lecliHp0c9GMO0VVY8RjhL5YhT_0LYz46rmBDbDrmKDd2i8ObrMDzOwSQ7q7cw41DT9k-8EDiuYfgWKLowz5Cp1hiTUYy0uMl2fZrYlu8l3NKbXkLx28_XM0ulMnbUl72Rr-qRegS0PXCLtlRQ5VXiTMxoErmdGBsvL8Q67b_y4uOKcYwGlaTA-XRvJlljOGUNJrjAL_wpKrtrbv3NFwfDwgwcAIArPW2XXPT-LuKTltAB_3qgxmVJUMPlFNmVIc0rcnz2rxM"></div>
+<div class="w-8 h-8 rounded-full border border-surface-container bg-surface-container-high flex items-center justify-center"><span class="text-[10px] text-primary">+128</span></div>
+</div>
+<button class="w-full border-2 border-primary-fixed text-primary-fixed py-2 font-label-caps italic font-black uppercase text-sm active:scale-95 mt-auto">Register</button>
+</div>
+<!-- Race Card 3: Namsan Vert Climb -->
+<div class="glass-card p-5 flex flex-col gap-3 group hover:primary-glow transition-all duration-300 min-w-[300px] snap-center">
+<div class="flex justify-between items-start">
+<div class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 font-label-caps text-[10px] italic">HOT</div>
+<span class="font-label-caps text-on-surface-variant/60 text-[10px]">1.8KM (STEEP)</span>
+</div>
+<h3 class="font-headline-md text-[20px] italic uppercase text-primary group-hover:text-primary-fixed">Namsan Vert Climb</h3>
+<div class="flex items-center gap-4">
+<div>
+<p class="font-metric-xl text-[18px] text-primary-fixed italic">PR</p>
+</div>
+<div class="h-6 w-px bg-white/10"></div>
+<p class="font-headline-md text-[18px] text-primary italic">08:42</p>
+</div>
+<button class="w-full bg-surface-container/50 text-primary py-2 font-label-caps italic font-black uppercase text-sm border border-white/10 active:scale-95 mt-auto">Challenge</button>
+</div>
+</div></div>
+<!-- Global Leaderboard Section -->
+<section class="mb-stack-lg">
+<div class="flex items-center gap-4 mb-stack-md">
+<h2 class="font-headline-lg text-headline-lg italic uppercase text-primary-fixed">Season Ranking</h2>
+<div class="flex-1 h-px bg-white/10"></div>
+</div>
+<div class="glass-card overflow-hidden" style="transform: translateY(0px);">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/40"><th class="px-4 py-2 font-label-caps italic text-primary-fixed text-[10px]">RANK</th><th class="px-4 py-2 font-label-caps italic text-primary-fixed text-[10px]">ATHLETE</th><th class="px-4 py-2 font-label-caps italic text-primary-fixed text-right text-[10px]">PTS</th><th class="px-4 py-2 font-label-caps italic text-primary-fixed text-right text-[10px]">RACES</th></tr>
+</thead>
+<tbody class="divide-y divide-white/5"><tr class="hover:bg-white/5 transition-colors">
+<td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary-fixed">01</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed text-[16px]">stars</span>
+<span class="font-headline-md text-[14px] italic text-primary uppercase">JUNG.KAI</span>
+</div>
+</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-primary-fixed text-[11px]">12,450</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">24</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary/60">02</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
+<span class="font-headline-md text-[14px] italic text-primary uppercase">MIN.YUNA</span>
+</div>
+</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-primary/80 text-[11px]">11,890</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">19</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary/40">03</td>
+<td class="px-4 py-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
+<span class="font-headline-md text-[14px] italic text-primary uppercase">BAEK.D</span>
+</div>
+</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-primary/60 text-[11px]">10,200</td>
+<td class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">31</td>
+</tr></tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile pb-safe pt-2 h-20 bg-surface-container/40 backdrop-blur-2xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps italic">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary scale-110 hover:text-primary transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-caps text-label-caps italic">RACE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-caps text-label-caps italic">STATS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps italic">PROFILE</span>
+</a>
+</nav>
+<!-- FAB for Quick Start Race -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-primary-fixed text-on-primary-fixed rounded-full shadow-2xl flex items-center justify-center transition-transform active:scale-90 hover:rotate-12 z-50">
+<span class="material-symbols-outlined font-bold">bolt</span>
+</button>
+<script>
+        // Smooth hover interactions for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Atmospheric effect: Subtle pulse on 'LIVE' badges
+        const liveBadges = document.querySelectorAll('.bg-secondary-container');
+        setInterval(() => {
+            liveBadges.forEach(badge => {
+                badge.style.opacity = badge.style.opacity === '0.6' ? '1' : '0.6';
+            });
+        }, 1000);
+    </script>
+
+
+
+
+
+
+
+
+</body></html>
