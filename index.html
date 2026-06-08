@@ -1679,21 +1679,27 @@
                         </div>
                     `;
                 } else {
-                    sessions.forEach(session => {
+                    sessions.forEach((session, idx) => {
                         const icon = session.type === 'terrain' ? 'terrain' : 'route';
+                        const bpmBadge = session.bpm ? `<span class="inline-flex items-center gap-1 text-red-400/80 font-label-caps text-[9px]"><span class="material-symbols-outlined text-[10px]" style="font-variation-settings:'FILL' 1">favorite</span>${session.bpm} BPM</span>` : '';
+                        const paceBadge = session.pace ? `<span class="inline-flex items-center gap-1 text-primary-fixed/70 font-label-caps text-[9px]"><span class="material-symbols-outlined text-[10px]" style="font-variation-settings:'FILL' 1">bolt</span>${session.pace}</span>` : '';
                         recentContainer.innerHTML += `
-                            <div class="glass-card rounded-lg p-4 flex items-center justify-between group cursor-pointer hover:bg-white/5 transition-colors"
-                                onclick="startLiveSession('${session.name}')">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 bg-surface-container/50 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                            <div class="glass-card rounded-lg p-4 flex items-center justify-between group cursor-pointer hover:bg-white/5 transition-all duration-200"
+                                onclick="continueSession(${idx})">
+                                <div class="flex items-center gap-4 flex-1 min-w-0">
+                                    <div class="w-12 h-12 bg-surface-container/50 rounded-lg flex items-center justify-center backdrop-blur-sm shrink-0">
                                         <span class="material-symbols-outlined text-on-surface-variant">${icon}</span>
                                     </div>
-                                    <div>
-                                        <h4 class="font-body-lg text-body-lg font-bold">${session.name}</h4>
-                                        <p class="font-label-caps text-[10px] text-on-surface-variant">${session.date} • ${session.distance.toFixed(1)} KM • ${session.time}</p>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="font-body-lg text-body-lg font-bold truncate">${session.name}</h4>
+                                        <p class="font-label-caps text-[10px] text-on-surface-variant">${session.date} &bull; ${session.distance.toFixed(1)} KM &bull; ${session.time}</p>
+                                        <div class="flex items-center gap-3 mt-1">${bpmBadge}${paceBadge}</div>
                                     </div>
                                 </div>
-                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-fixed transition-colors">chevron_right</span>
+                                <div class="flex flex-col items-end gap-1 shrink-0 ml-2">
+                                    <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-fixed transition-colors">chevron_right</span>
+                                    <span class="font-label-caps text-[8px] text-primary-fixed/60 italic">이어서 달리기</span>
+                                </div>
                             </div>
                         `;
                     });
@@ -1929,6 +1935,57 @@
             showScreen('screen-live');
         }
 
+        // Continue a previous session from its saved distance/time
+        function continueSession(sessionIdx) {
+            const currentUser = JSON.parse(sessionStorage.getItem('runtec_current_user'));
+            if (!currentUser || !currentUser.sessions) return startLiveSession('Custom Performance Route');
+            const session = currentUser.sessions[sessionIdx];
+            if (!session) return startLiveSession('Custom Performance Route');
+
+            // Parse saved time back to seconds
+            const timeParts = session.time.split(':').map(Number);
+            let totalSeconds = 0;
+            if (timeParts.length === 3) totalSeconds = timeParts[0]*3600 + timeParts[1]*60 + timeParts[2];
+            else if (timeParts.length === 2) totalSeconds = timeParts[0]*60 + timeParts[1];
+
+            // Pre-load previous session values
+            appState.liveSessionTime = totalSeconds;
+            appState.liveSessionDistance = session.distance;
+            appState.isPaceRunning = true;
+            liveLastCoord = null;
+            liveCurrentBPM = session.bpm || 0;
+            liveWaveAmplitude = session.bpm ? 15 + (session.bpm - 60) * 0.15 : 3;
+            liveWaveSpeed = session.bpm ? 0.5 + (session.bpm - 60) * 0.015 : 0.5;
+
+            // Set UI
+            const titleEl = document.getElementById('live-route-title');
+            const timerEl = document.getElementById('live-timer');
+            const distEl = document.getElementById('live-distance');
+            const paceEl = document.getElementById('live-pace');
+            const hrEl = document.getElementById('live-hr-display');
+            const locEl = document.getElementById('live-location-display');
+            const btn = document.getElementById('live-connect-hr-btn');
+
+            if (titleEl) titleEl.textContent = session.name.toUpperCase();
+            if (timerEl) {
+                const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+                const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+                const s = (totalSeconds % 60).toString().padStart(2, '0');
+                timerEl.textContent = `${h}:${m}:${s}`;
+            }
+            if (distEl) distEl.textContent = session.distance.toFixed(2);
+            if (paceEl) paceEl.textContent = session.pace || '0:00';
+            if (hrEl) hrEl.textContent = liveCurrentBPM > 0 ? liveCurrentBPM : '0';
+            if (locEl) locEl.textContent = 'WAITING FOR GPS...';
+            if (btn) {
+                btn.innerHTML = '<span class="material-symbols-outlined text-[12px]">bluetooth</span> PAIR HR SENSOR';
+                btn.classList.remove('border-green-500/50');
+                btn.classList.add('border-white/10');
+            }
+
+            showScreen('screen-live');
+        }
+
         function startLiveMetricsSim() {
             const timerEl = document.getElementById('live-timer');
             const pauseIcon = document.getElementById('live-pause-icon');
@@ -2059,8 +2116,10 @@
                     name: document.getElementById('live-route-title').textContent || 'Custom Performance Route',
                     date: formattedDate,
                     distance: appState.liveSessionDistance,
-                    time: timerVal.substring(3), // trim hours if 00, e.g. "12:45"
-                    type: 'route'
+                    time: timerVal.substring(3),
+                    type: 'route',
+                    bpm: liveCurrentBPM > 0 ? liveCurrentBPM : null,
+                    pace: paceVal || null
                 });
 
                 // Earn XP (100 XP per KM)
