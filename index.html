@@ -642,11 +642,11 @@
                         <span class="font-label-caps text-label-caps text-on-surface-variant">PACE</span>
                         <span id="dashboard-pace" class="font-headline-md text-headline-md italic text-primary">4'22"</span>
                     </div>
-                    <div class="glass-card rounded-xl p-5 flex flex-col justify-center items-center text-center">
+                    <div class="glass-card rounded-xl p-5 flex flex-col justify-center items-center text-center min-h-[110px]">
                         <span class="material-symbols-outlined text-secondary text-3xl mb-2 text-red-500"
                             style="font-variation-settings: 'FILL' 1;">favorite</span>
                         <span class="font-label-caps text-label-caps text-on-surface-variant">AVG BPM</span>
-                        <span id="dashboard-bpm" class="font-headline-md text-headline-md italic text-primary">164</span>
+                        <span id="dashboard-bpm" class="font-headline-md text-headline-md italic text-primary mt-0.5">164</span>
                     </div>
                 </div>
 
@@ -1587,7 +1587,7 @@
                     weeklyMileage: 0.0,
                     globalRank: "--",
                     pace: "--'--\"",
-                    avgBpm: "0",
+                    avgBpm: null,
                     xp: 0,
                     sessions: []
                 };
@@ -1645,7 +1645,7 @@
             const mileage = typeof user.weeklyMileage === 'number' ? user.weeklyMileage : 0.0;
             const rank = user.globalRank || "--";
             const pace = user.pace || "--'--\"";
-            const bpm = user.avgBpm || "0";
+            const bpm = user.avgBpm;
             const xp = typeof user.xp === 'number' ? user.xp : 0;
             
             appState.weeklyMileageBase = mileage;
@@ -1655,7 +1655,16 @@
             }
             if (rankEl) rankEl.textContent = `Global Rank: ${rank}`;
             if (paceEl) paceEl.textContent = pace;
-            if (bpmEl) bpmEl.textContent = bpm;
+            if (bpmEl) {
+                if (!bpm || bpm === '0' || bpm === 0) {
+                    bpmEl.innerHTML = `<span class="block text-center leading-snug">
+                        <span class="block text-[13px] font-bold italic text-red-400/90">미측정</span>
+                        <span class="block text-[9px] font-label-caps text-on-surface-variant/60 normal-case mt-0.5">라이브 세션에서<br>HR 센서 연결 필요</span>
+                    </span>`;
+                } else {
+                    bpmEl.textContent = bpm;
+                }
+            }
             if (xpText) xpText.textContent = `${xp} XP / 3,000 XP`;
             if (xpBar) xpBar.style.width = `${(xp / 3000 * 100).toFixed(0)}%`;
 
@@ -2060,7 +2069,7 @@
 
                 // Recalculate rank, pace and BPM
                 currentUser.pace = paceVal + "\"";
-                currentUser.avgBpm = liveCurrentBPM > 0 ? liveCurrentBPM.toString() : "145";
+                currentUser.avgBpm = liveCurrentBPM > 0 ? liveCurrentBPM.toString() : null;
 
                 if (currentUser.weeklyMileage > 30) currentUser.globalRank = "#8";
                 else if (currentUser.weeklyMileage > 15) currentUser.globalRank = "#25";
