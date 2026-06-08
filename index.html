@@ -613,12 +613,16 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
                 <!-- Live Competition Bento Card -->
                 <article class="glass-card rounded-xl p-6 md:col-span-8 flex flex-col justify-between min-h-[220px]">
-                    <div class="flex justify-between items-start">
-                        <div>
+                    <div class="flex flex-col sm:flex-row justify-between items-start w-full gap-4">
+                        <div class="flex-1">
                             <h3 id="dashboard-rank" class="font-headline-md text-headline-md italic uppercase text-primary mb-1">Global Rank: #12</h3>
-                            <p class="font-body-md text-on-surface-variant">Top 1% of elite runners this month</p>
+                            <p id="dashboard-rank-subtitle" class="font-body-md text-on-surface-variant">Top 1% of elite runners this month</p>
                         </div>
-                        <div class="p-2 glass-card rounded-lg select-none">
+                        <!-- Top 2 Mini Leaderboard -->
+                        <div id="dashboard-top-runners" class="glass-card bg-surface-container/20 p-3 rounded-lg border border-white/5 space-y-2 backdrop-blur-sm min-w-[200px] w-full sm:w-auto shrink-0 select-none">
+                            <div class="font-label-caps text-[9px] text-primary-fixed italic tracking-wider mb-1">LEADERBOARD TOP 2</div>
+                        </div>
+                        <div class="p-2 glass-card rounded-lg select-none hidden sm:block shrink-0">
                             <span class="material-symbols-outlined text-primary-fixed"
                                 style="font-variation-settings: 'FILL' 1;">leaderboard</span>
                         </div>
@@ -742,9 +746,7 @@
                         <h2 class="font-headline-lg text-headline-lg italic uppercase text-primary-fixed">Active Races
                         </h2>
                     </div>
-                    <button onclick="startLiveSession('Custom Race Arena')"
-                        class="bg-primary-fixed text-on-primary-fixed px-6 py-2 font-label-caps italic font-bold uppercase transition-transform active:scale-95">Create
-                        Race</button>
+                    <!-- Create Race button removed as requested -->
                 </div>
                 <div class="h-1 w-24 bg-primary-fixed"></div>
             </section>
@@ -866,55 +868,8 @@
                                     RACES</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/5">
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary-fixed">01</td>
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center gap-2">
-                                        <span
-                                            class="material-symbols-outlined text-primary-fixed text-[16px]">stars</span>
-                                        <span
-                                            class="font-headline-md text-[14px] italic text-primary uppercase">JUNG.KAI</span>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 font-label-caps text-right italic text-primary-fixed text-[11px]">
-                                    12,450</td>
-                                <td
-                                    class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">
-                                    24</td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary/60">02</td>
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center gap-2">
-                                        <span
-                                            class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
-                                        <span
-                                            class="font-headline-md text-[14px] italic text-primary uppercase">MIN.YUNA</span>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 font-label-caps text-right italic text-primary/80 text-[11px]">
-                                    11,890</td>
-                                <td
-                                    class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">
-                                    19</td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="px-4 py-3 font-metric-xl text-[16px] italic text-primary/40">03</td>
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center gap-2">
-                                        <span
-                                            class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
-                                        <span
-                                            class="font-headline-md text-[14px] italic text-primary uppercase">BAEK.D</span>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 font-label-caps text-right italic text-primary/60 text-[11px]">
-                                    10,200</td>
-                                <td
-                                    class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">
-                                    31</td>
-                            </tr>
+                        <tbody id="season-ranking-tbody" class="divide-y divide-white/5">
+                            <!-- Dynamically generated rows -->
                         </tbody>
                     </table>
                 </div>
@@ -1071,13 +1026,13 @@
                 <!-- Details -->
                 <div class="text-center md:text-left flex-1 space-y-2">
                     <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                        <h2 class="font-headline-lg text-headline-lg italic font-black uppercase text-primary-fixed">
+                        <h2 id="profile-athlete-name" class="font-headline-lg text-headline-lg italic font-black uppercase text-primary-fixed">
                             KIM.S</h2>
                         <span
                             class="inline-block bg-primary-fixed/20 text-primary-fixed border border-primary-fixed/30 px-3 py-0.5 rounded-full font-label-caps text-[10px] italic w-fit mx-auto md:mx-0">DIAMOND
                             LEVEL ATHLETE</span>
                     </div>
-                    <p class="font-label-caps text-[11px] text-on-surface-variant/70 tracking-widest">ID: #RT-20920 •
+                    <p id="profile-athlete-email" class="font-label-caps text-[11px] text-on-surface-variant/70 tracking-widest">ID: #RT-20920 •
                         SINCE OCT 2024</p>
                     <div
                         class="flex items-center gap-3 justify-center md:justify-start pt-1 text-primary-fixed font-bold text-sm">
@@ -1089,7 +1044,7 @@
                 <div
                     class="glass-card-bright p-4 rounded-lg text-center min-w-[120px] select-none border border-primary-fixed/20">
                     <p class="font-label-caps text-[9px] text-on-surface-variant">SEASON SCORE</p>
-                    <p class="font-metric-xl text-3xl italic font-black text-primary-fixed py-1">2,450</p>
+                    <p id="profile-athlete-score" class="font-metric-xl text-3xl italic font-black text-primary-fixed py-1">2,450</p>
                     <p class="font-label-caps text-[9px] text-primary-fixed">PTS</p>
                 </div>
             </section>
@@ -1100,7 +1055,7 @@
                 <div class="glass-card rounded-xl p-5 flex items-center justify-between">
                     <div>
                         <p class="font-label-caps text-[10px] text-on-surface-variant/70 italic">MONTHLY DISTANCE</p>
-                        <p class="font-headline-md text-2xl italic font-black text-primary-fixed mt-1">180.4 KM</p>
+                        <p id="profile-athlete-mileage" class="font-headline-md text-2xl italic font-black text-primary-fixed mt-1">180.4 KM</p>
                     </div>
                     <div
                         class="w-10 h-10 bg-primary-fixed/10 rounded-lg flex items-center justify-center text-primary-fixed border border-primary-fixed/20">
@@ -1111,7 +1066,7 @@
                 <div class="glass-card rounded-xl p-5 flex items-center justify-between">
                     <div>
                         <p class="font-label-caps text-[10px] text-on-surface-variant/70 italic">TOTAL SESSIONS</p>
-                        <p class="font-headline-md text-2xl italic font-black text-primary mt-1">24 Runs</p>
+                        <p id="profile-athlete-runs" class="font-headline-md text-2xl italic font-black text-primary mt-1">24 Runs</p>
                     </div>
                     <div
                         class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-white/60 border border-white/10">
@@ -1123,7 +1078,7 @@
                 <div class="glass-card rounded-xl p-5 flex items-center justify-between">
                     <div>
                         <p class="font-label-caps text-[10px] text-on-surface-variant/70 italic">AVERAGE PACE</p>
-                        <p class="font-headline-md text-2xl italic font-black text-secondary mt-1">4'45" /KM</p>
+                        <p id="profile-athlete-pace" class="font-headline-md text-2xl italic font-black text-secondary mt-1">4'45" /KM</p>
                     </div>
                     <div
                         class="w-10 h-10 bg-secondary-container/10 rounded-lg flex items-center justify-center text-secondary border border-secondary-container/20">
@@ -1336,6 +1291,104 @@
             weeklyMileageBase: 45.7
         };
 
+        // Dummy Leaderboard Data (9 entries)
+        const DUMMY_LEADERBOARD = [
+            { name: "JUNG.KAI", xp: 12450, races: 24 },
+            { name: "MIN.YUNA", xp: 11890, races: 19 },
+            { name: "BAEK.D", xp: 10200, races: 31 },
+            { name: "CHOI.MIN", xp: 8750, races: 22 },
+            { name: "PARK.J", xp: 7420, races: 15 },
+            { name: "LEE.S", xp: 6200, races: 18 },
+            { name: "KIM.JI", xp: 5110, races: 14 },
+            { name: "KIM.S", xp: 4250, races: 12 },
+            { name: "HWANG.B", xp: 3100, races: 10 }
+        ];
+
+        // Helper to compute user's rank
+        function getUserRank(user) {
+            if (!user) return "--";
+            const combinedList = [...DUMMY_LEADERBOARD];
+            const userEntry = {
+                name: user.name,
+                xp: user.xp || 0,
+                races: user.sessions ? user.sessions.length : 0,
+                isUser: true
+            };
+            combinedList.push(userEntry);
+            combinedList.sort((a, b) => b.xp - a.xp);
+            const userIndex = combinedList.findIndex(item => item.isUser);
+            return `#${userIndex + 1}`;
+        }
+
+        // Render Season Ranking table
+        function renderSeasonRanking() {
+            const tbody = document.getElementById('season-ranking-tbody');
+            if (!tbody) return;
+
+            const currentUser = JSON.parse(sessionStorage.getItem('runtec_current_user'));
+            const combinedList = [...DUMMY_LEADERBOARD];
+            if (currentUser) {
+                combinedList.push({
+                    name: currentUser.name,
+                    xp: currentUser.xp || 0,
+                    races: currentUser.sessions ? currentUser.sessions.length : 0,
+                    isUser: true
+                });
+            }
+            
+            // Sort by XP descending
+            combinedList.sort((a, b) => b.xp - a.xp);
+
+            tbody.innerHTML = '';
+            
+            combinedList.forEach((item, index) => {
+                const rankNum = (index + 1).toString().padStart(2, '0');
+                
+                // Color variables for rank number based on rank position
+                let rankColorClass = "text-primary/40";
+                if (index === 0) rankColorClass = "text-primary-fixed";
+                else if (index === 1) rankColorClass = "text-primary/80";
+                else if (index === 2) rankColorClass = "text-primary/60";
+
+                const isTop1 = index === 0;
+                const iconName = isTop1 ? 'stars' : 'person';
+                const iconColorClass = isTop1 ? 'text-primary-fixed' : 'text-on-surface-variant';
+                
+                // Point color class
+                let ptsColorClass = "text-primary/60";
+                if (index === 0) ptsColorClass = "text-primary-fixed";
+                else if (index === 1) ptsColorClass = "text-primary/80";
+                
+                const highlightRowClass = item.isUser 
+                    ? 'bg-primary-fixed/10 hover:bg-primary-fixed/15 border-l-4 border-primary-fixed' 
+                    : 'hover:bg-white/5';
+                
+                const highlightTextClass = item.isUser 
+                    ? 'text-primary-fixed font-black' 
+                    : 'text-primary';
+
+                const userBadge = item.isUser 
+                    ? ' <span class="ml-2 bg-primary-fixed/20 text-primary-fixed text-[9px] px-1.5 py-0.5 rounded font-label-caps not-italic">YOU</span>' 
+                    : '';
+
+                tbody.innerHTML += `
+                    <tr class="transition-colors ${highlightRowClass}">
+                        <td class="px-4 py-3 font-metric-xl text-[16px] italic ${rankColorClass}">${rankNum}</td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined ${iconColorClass} text-[16px]">${iconName}</span>
+                                <span class="font-headline-md text-[14px] italic ${highlightTextClass} uppercase">${item.name}${userBadge}</span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 font-label-caps text-right italic ${ptsColorClass} text-[11px]">
+                            ${item.xp.toLocaleString()}</td>
+                        <td class="px-4 py-3 font-label-caps text-right italic text-on-surface-variant text-[11px]">
+                            ${item.races}</td>
+                    </tr>
+                `;
+            });
+        }
+
         // Splash progress timer
         let splashProgress = 0;
         const splashDuration = 3000;
@@ -1389,6 +1442,10 @@
                 startLiveMetricsSim();
             } else {
                 stopLiveMetricsSim();
+            }
+
+            if (screenId === 'screen-competition') {
+                renderSeasonRanking();
             }
         }
 
@@ -1616,8 +1673,23 @@
             // Update profile screen name if exists
             const profileNameEl = document.getElementById('profile-athlete-name');
             const profileEmailEl = document.getElementById('profile-athlete-email');
+            const profileScoreEl = document.getElementById('profile-athlete-score');
+            const profileMileageEl = document.getElementById('profile-athlete-mileage'); // Monthly distance
+            const profileRunsEl = document.getElementById('profile-athlete-runs'); // Total runs
+            const profilePaceEl = document.getElementById('profile-athlete-pace'); // Avg pace
+
             if (profileNameEl && user.name) profileNameEl.textContent = user.name.toUpperCase();
-            if (profileEmailEl && user.email) profileEmailEl.textContent = user.email;
+            if (profileEmailEl && user.email) profileEmailEl.textContent = `EMAIL: ${user.email.toUpperCase()} • SINCE OCT 2024`;
+            if (profileScoreEl && user.xp !== undefined) profileScoreEl.textContent = (user.xp || 0).toLocaleString();
+            if (profileMileageEl && user.weeklyMileage !== undefined) {
+                profileMileageEl.textContent = `${user.weeklyMileage.toFixed(1)} KM`;
+            }
+            if (profileRunsEl && user.sessions) {
+                profileRunsEl.textContent = `${user.sessions.length} Runs`;
+            }
+            if (profilePaceEl && user.pace) {
+                profilePaceEl.textContent = `${user.pace} /KM`;
+            }
         }
 
         function updateDashboardDisplay(user) {
@@ -1629,11 +1701,48 @@
             const xpBar = document.getElementById('dashboard-xp-bar');
             const recentContainer = document.getElementById('recent-sessions-container');
 
+            const combinedList = [...DUMMY_LEADERBOARD];
+            if (user) {
+                combinedList.push({
+                    name: user.name,
+                    xp: user.xp || 0,
+                    races: user.sessions ? user.sessions.length : 0,
+                    isUser: true
+                });
+            }
+            combinedList.sort((a, b) => b.xp - a.xp);
+
+            // Update Top 2 display
+            const topRunnersEl = document.getElementById('dashboard-top-runners');
+            if (topRunnersEl) {
+                topRunnersEl.innerHTML = `<div class="font-label-caps text-[9px] text-primary-fixed italic tracking-wider mb-1">LEADERBOARD TOP 2</div>`;
+                const top2 = combinedList.slice(0, 2);
+                top2.forEach((item, index) => {
+                    const rankIcon = index === 0 ? 'stars' : 'person';
+                    const iconColorClass = index === 0 ? 'text-primary-fixed' : 'text-on-surface-variant/60';
+                    const pointsColorClass = index === 0 ? 'text-primary-fixed' : 'text-primary/80';
+                    const highlightClass = item.isUser ? 'text-primary-fixed font-black' : 'text-primary';
+                    const userBadge = item.isUser ? ' <span class="bg-primary-fixed/20 text-primary-fixed text-[8px] px-1 rounded font-label-caps not-italic">YOU</span>' : '';
+                    
+                    topRunnersEl.innerHTML += `
+                        <div class="flex items-center justify-between text-xs ${item.isUser ? 'bg-primary-fixed/10 p-1 rounded border border-primary-fixed/20' : ''}">
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined ${iconColorClass} text-[12px]">${rankIcon}</span>
+                                <span class="font-headline-md text-[11px] italic ${highlightClass} uppercase">${item.name}${userBadge}</span>
+                            </div>
+                            <span class="font-label-caps ${pointsColorClass} italic text-[10px]">${item.xp.toLocaleString()} PTS</span>
+                        </div>
+                    `;
+                });
+            }
+
             if (!user) {
                 // If generic/demo runner before signup
                 appState.weeklyMileageBase = 45.7;
                 if (weeklyKm) weeklyKm.innerHTML = `45.7 <span class="text-headline-md font-headline-md align-top ml-[-12px]">KM</span>`;
                 if (rankEl) rankEl.textContent = "Global Rank: #12";
+                const rankSubtitleEl = document.getElementById('dashboard-rank-subtitle');
+                if (rankSubtitleEl) rankSubtitleEl.textContent = "Top 1% of elite runners this month";
                 if (paceEl) paceEl.textContent = "4'22\"";
                 if (bpmEl) bpmEl.textContent = "164";
                 if (xpText) xpText.textContent = "2,450 XP / 3,000 XP";
@@ -1643,7 +1752,7 @@
 
             // Load from user properties
             const mileage = typeof user.weeklyMileage === 'number' ? user.weeklyMileage : 0.0;
-            const rank = user.globalRank || "--";
+            const rank = getUserRank(user);
             const pace = user.pace || "--'--\"";
             const bpm = user.avgBpm;
             const xp = typeof user.xp === 'number' ? user.xp : 0;
@@ -1654,6 +1763,15 @@
                 weeklyKm.innerHTML = `${parts[0]}.${parts[1]} <span class="text-headline-md font-headline-md align-top ml-[-12px]">KM</span>`;
             }
             if (rankEl) rankEl.textContent = `Global Rank: ${rank}`;
+            
+            const rankSubtitleEl = document.getElementById('dashboard-rank-subtitle');
+            if (rankSubtitleEl) {
+                const userIndex = combinedList.findIndex(item => item.isUser);
+                const pct = Math.max(1, Math.round(((userIndex + 1) / combinedList.length) * 100));
+                rankSubtitleEl.textContent = `Top ${pct}% of elite runners this season`;
+            }
+
+            const currentLevelXp = xp % 3000;
             if (paceEl) paceEl.textContent = pace;
             if (bpmEl) {
                 if (!bpm || bpm === '0' || bpm === 0) {
@@ -1665,8 +1783,8 @@
                     bpmEl.textContent = bpm;
                 }
             }
-            if (xpText) xpText.textContent = `${xp} XP / 3,000 XP`;
-            if (xpBar) xpBar.style.width = `${(xp / 3000 * 100).toFixed(0)}%`;
+            if (xpText) xpText.textContent = `${currentLevelXp} XP / 3,000 XP`;
+            if (xpBar) xpBar.style.width = `${(currentLevelXp / 3000 * 100).toFixed(0)}%`;
 
             // Update recent sessions list
             if (recentContainer) {
@@ -2123,16 +2241,13 @@
                 });
 
                 // Earn XP (100 XP per KM)
-                if (!currentUser.xp) currentUser.xp = 0;
-                currentUser.xp = Math.min(3000, currentUser.xp + Math.round(appState.liveSessionDistance * 100));
+                currentUser.xp = (currentUser.xp || 0) + Math.round(appState.liveSessionDistance * 100);
 
                 // Recalculate rank, pace and BPM
                 currentUser.pace = paceVal + "\"";
                 currentUser.avgBpm = liveCurrentBPM > 0 ? liveCurrentBPM.toString() : null;
 
-                if (currentUser.weeklyMileage > 30) currentUser.globalRank = "#8";
-                else if (currentUser.weeklyMileage > 15) currentUser.globalRank = "#25";
-                else if (currentUser.weeklyMileage > 0) currentUser.globalRank = "#98";
+                currentUser.globalRank = getUserRank(currentUser);
 
                 // Save to accounts list and sessionStorage
                 const accounts = JSON.parse(localStorage.getItem('runtec_accounts') || '[]');
